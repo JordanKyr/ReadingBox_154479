@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "792558502757",
+    "project_id": "readingbox-154479",
+    "storage_bucket": "readingbox-154479.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:792558502757:android:02df540777b7755baf978c",
+        "android_client_info": {
+          "package_name": "com.example.readingbox_154479"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZoXFdzveMpgGc9_mpEkMv67AVlLTKzUw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
