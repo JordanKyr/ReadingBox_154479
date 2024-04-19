@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public static FragmentManager fragmentManager;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    public static FirebaseFirestore db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-
+        db = FirebaseFirestore.getInstance();
         fragmentManager=getSupportFragmentManager();
 
         if(findViewById(R.id.fragment_container)!=null){

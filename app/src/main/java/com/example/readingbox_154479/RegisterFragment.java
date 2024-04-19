@@ -2,12 +2,20 @@ package com.example.readingbox_154479;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,11 +66,51 @@ public class RegisterFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    EditText usernameText, passText;
+    String reg_username,reg_password;
+    Button reg_button;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register, container, false);
+       View view= inflater.inflate(R.layout.fragment_register, container, false);
+
+        usernameText= view.findViewById(R.id.editRegUser);         //συνδεση με στοιχεια του fragment
+        passText=view.findViewById(R.id.editRegPass);
+        reg_button=view.findViewById(R.id.buttonRegSubmit);
+
+        reg_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reg_username=usernameText.getText().toString();                               //παιρνει τις τιμες που εγραψε ο χρηστης
+                reg_password=passText.getText().toString();
+
+                try {
+                        Users users=new Users();                    //φτιαχνει αντικειμενο για τη βαση δεδομενων
+                        users.setUsername(reg_username);
+                        users.setPassword(reg_password);                //εισαγωγη αντικειμενου στη βαση
+                        MainActivity.db.collection("Users").document(""+reg_username).set(users).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(getActivity(), "User Registered", Toast.LENGTH_SHORT).show();
+                                            
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(getActivity(),"Registration failed.",Toast.LENGTH_LONG).show();
+                            }
+                        });
+                }catch (Exception e) {
+                    String message = e.getMessage();
+                    Toast.makeText(getActivity(),message,Toast.LENGTH_LONG).show();
+                }
+
+                usernameText.setText("");  //αδειασμα πεδιων
+                passText.setText("");
+
+            }
+        });
+return view;
     }
 }
