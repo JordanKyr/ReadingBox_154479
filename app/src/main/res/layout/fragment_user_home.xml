@@ -36,23 +36,22 @@
         android:src="@android:drawable/ic_menu_search" />
 
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/resultLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal">
 
         <TextView
             android:id="@+id/textSearchRes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="365dp"
-            android:gravity="start"
-            android:text="       "
-            android:textAlignment="textStart"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:gravity="center_horizontal"
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:text="       "
+            android:textAlignment="textStart" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </FrameLayout>

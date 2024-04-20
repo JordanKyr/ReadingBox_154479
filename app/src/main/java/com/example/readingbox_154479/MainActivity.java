@@ -12,7 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class MainActivity extends AppCompatActivity implements LogInUserFragment.OnMessageSendListener{
+public class MainActivity extends AppCompatActivity implements LogInUserFragment.OnMessageSendListener, UserHome.OnBookSendListener{
 
 
     public static FragmentManager fragmentManager;
@@ -39,12 +39,24 @@ public class MainActivity extends AppCompatActivity implements LogInUserFragment
 
 
     @Override
-public void onMessageSend(String message){
-            UserHome userHome=new UserHome();
-            Bundle bundle =new Bundle();
-            bundle.putString("username",message);
-            userHome.setArguments(bundle);
-        FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,userHome,null);
+public void onMessageSend(String message) {
+        UserHome userHome = new UserHome();
+        Bundle bundle = new Bundle();
+        bundle.putString("username", message);
+        userHome.setArguments(bundle);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, userHome, null);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+
+    }
+
+@Override
+    public void onBookSend(String title) {
+        BookDetails bookDetails = new BookDetails();
+        Bundle bundle = new Bundle();
+        bundle.putString("title", title);
+        bookDetails.setArguments(bundle);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, bookDetails, null);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 

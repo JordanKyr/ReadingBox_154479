@@ -1,8 +1,11 @@
 package com.example.readingbox_154479;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -74,7 +77,19 @@ TextView welcome;
     ImageButton button ;
     EditText searchString;
     CollectionReference collectionReference;
+
+    String title;
 String search;
+
+ConstraintLayout resultLayout;
+
+    OnBookSendListener bookSendListener;
+    public interface OnBookSendListener{
+        public void onBookSend(String message);
+    }
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -89,6 +104,7 @@ welcome=view.findViewById(R.id.TextUserWelcome);
         searchResult=view.findViewById(R.id.textSearchRes);
         button=view.findViewById(R.id.imageButtonSearch);
         searchString=view.findViewById(R.id.editSearchBook);
+        resultLayout=view.findViewById(R.id.resultLayout);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
@@ -105,11 +121,23 @@ welcome=view.findViewById(R.id.TextUserWelcome);
                         for(QueryDocumentSnapshot documentSnapshot: queryDocumentSnapshots){
                             Books books=documentSnapshot.toObject(Books.class);
                             String author=books.getAuthor();
-                            Integer pubyear=books.getPubYear();
-                            String title=books.getTitle();
-                            result+=" Author: "+author+"\n Title: "+title+"\n Publication Year: "+pubyear+"\n"+"\n";
+                            title=books.getTitle();
+      //test                      TextView textViewResult=new TextView(getContext());
+     //                       textViewResult.setText(" Author: "+author+"\n Title: "+title+"\n"+"\n");
+
+                            result+=" Author: "+author+"\n Title: "+title+"\n"+"\n";
                         }
                         searchResult.setText(result);
+
+                        searchResult.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                bookSendListener.onBookSend(title);
+
+                            }
+                        });
+
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -123,6 +151,24 @@ welcome=view.findViewById(R.id.TextUserWelcome);
         });
         return view;
 
+
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context){
+        super.onAttach(context);
+        Activity activity=(Activity) context;
+        try{
+            bookSendListener=(OnBookSendListener) activity;
+        }catch (ClassCastException e){
+            throw new ClassCastException(activity.toString()+" must implement onMessageSend ");
+        }
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        searchString.setText("");
 
     }
 }
