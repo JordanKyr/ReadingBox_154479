@@ -8,10 +8,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LogInUserFragment.OnMessageSendListener{
 
 
     public static FragmentManager fragmentManager;
@@ -34,5 +35,18 @@ public class MainActivity extends AppCompatActivity {
             if(savedInstanceState!=null){return;}
             fragmentManager.beginTransaction().add(R.id.fragment_container,new LoginFragment()).commit(); //ανοίγει ένα LoginFragment στο layout
             }
+    }
+
+
+    @Override
+public void onMessageSend(String message){
+            UserHome userHome=new UserHome();
+            Bundle bundle =new Bundle();
+            bundle.putString("username",message);
+            userHome.setArguments(bundle);
+        FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,userHome,null);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+
     }
 }

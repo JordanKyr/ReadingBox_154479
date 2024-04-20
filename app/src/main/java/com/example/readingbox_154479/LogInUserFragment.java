@@ -1,5 +1,7 @@
 package com.example.readingbox_154479;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -71,6 +73,11 @@ public class LogInUserFragment extends Fragment {
     String username,password;
     Button login_button;
 
+    OnMessageSendListener messageSendListener;
+    public interface OnMessageSendListener{
+        public void onMessageSend(String message);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -99,7 +106,15 @@ public class LogInUserFragment extends Fragment {
 
                                 if(documentSnapshot.exists()){                                          //ελεγχος για συνδεση
                                    String dbpass=documentSnapshot.getString("password");
-                                    if(password.equals(dbpass)) Toast.makeText(getActivity(),"user logged in",Toast.LENGTH_LONG).show();
+                                    if(password.equals(dbpass)){
+                                        Toast.makeText(getActivity(),"user logged in",Toast.LENGTH_LONG).show();
+
+                                        messageSendListener.onMessageSend(username);
+
+
+
+
+                                    }
                                     else Toast.makeText(getActivity(),"user NOT logged in",Toast.LENGTH_LONG).show();
 
                                 }
@@ -117,4 +132,21 @@ public class LogInUserFragment extends Fragment {
 
        return view;
     }
+@Override
+    public void onAttach(@NonNull Context context){
+        super.onAttach(context);
+    Activity activity=(Activity) context;
+    try{
+        messageSendListener=(OnMessageSendListener) activity;
+    }catch (ClassCastException e){
+        throw new ClassCastException(activity.toString()+" must implement onMessageSend ");
+    }
+}
+
+@Override
+    public void onResume(){
+        super.onResume();
+        usernameText.setText("");
+        passText.setText("");
+}
 }
