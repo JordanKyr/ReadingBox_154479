@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <group android:checkableBehavior="single">
+
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/home_img"
+        android:title="Home">
+
+    </item>
+
+    <item
+        android:id="@+id/authors"
+        android:icon="@drawable/lists_img"
+        android:title="Authors">
+
+    </item>
+
+    <item
+        android:id="@+id/lists"
+        android:icon="@drawable/authors"
+        android:title="Lists">
+
+    </item>
+
+</group>
+
+
+
+</menu>
