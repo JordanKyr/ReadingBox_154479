@@ -21,6 +21,9 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link BookDetails#newInstance} factory method to
@@ -61,6 +64,8 @@ public class BookDetails extends Fragment {
 
     ImageView cover;
     TextView bookDetails;
+
+
     CollectionReference collectionReference;
 
     @Override
@@ -77,17 +82,17 @@ public class BookDetails extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
        View view =inflater.inflate(R.layout.fragment_book_details, container, false);
-    bookDetails=view.findViewById(R.id.textBookDet);
+    bookDetails=view.findViewById(R.id.textBookDet);  //συνδεση στοιχειων του layout
     cover=view.findViewById(R.id.imageViewCover);
 
-        Bundle bundle =getArguments();
+        Bundle bundle =getArguments();                      //παιρνω απο το bundle το String
         String searchTitle=bundle.getString("title");
 
 
 
         collectionReference=MainActivity.db.collection("Books");
         Query query=collectionReference.where(
-                Filter.equalTo("Title", searchTitle)
+                Filter.equalTo("Title", searchTitle)                    //φιλτραρισμα δεδομενων απο το query στη βαση
         );
         query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
@@ -100,7 +105,20 @@ public class BookDetails extends Fragment {
                     Integer pubyear=books.getPubYear();
                     String title=books.getTitle();
                     imgURL=books.getCover();
-                    result+=" Author: "+author+"\n Title: "+title+"\n Publication Year: "+pubyear+"\n"+"\n";
+
+                    String isbn=documentSnapshot.getId();
+
+                    List<String> genres= new ArrayList<>();   //παιρνω τη λιστα με το Genre και φτιαχνω ενα string
+                    genres=  books.getGenre();
+
+
+                    String genresString=genres.get(0);
+                    for(int i=1; i<genres.size(); i++){
+                        genresString+= ", " +genres.get(i);
+                    }
+
+
+                    result+=" Author: "+author+"\n Title: "+title+"\n Publication Year: "+pubyear+"\n Genre: "+genresString+"\n ISBN: "+ isbn +"\n";
                 }
                 bookDetails.setText(result);
                 Picasso.get().load(imgURL).into(cover);
