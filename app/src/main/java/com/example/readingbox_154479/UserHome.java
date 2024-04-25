@@ -187,7 +187,7 @@ public class UserHome extends Fragment{
         try{
             bookSendListener=(OnBookSendListener) activity;
         }catch (ClassCastException e){
-            throw new ClassCastException(activity.toString()+" must implement onMessageSend ");
+            throw new ClassCastException(activity.toString()+" must implement onBookSend ");
         }
     }
 

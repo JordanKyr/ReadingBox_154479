@@ -24,7 +24,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class MainActivity extends AppCompatActivity implements LogInUserFragment.OnMessageSendListener, UserHome.OnBookSendListener{
+public class MainActivity extends AppCompatActivity implements LogInUserFragment.OnMessageSendListener, UserHome.OnBookSendListener, AuthorsFragment.OnAuthorSendListener{
 
 
     public static FragmentManager fragmentManager;
@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements LogInUserFragment
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
+
+    public String username;
 
 
     @Override
@@ -76,6 +78,11 @@ public class MainActivity extends AppCompatActivity implements LogInUserFragment
                 }
                 else if(menuItem.getItemId()==R.id.authors){
                     displayMessage("Open Authors");
+                    if(findViewById(R.id.fragment_container)!=null){
+                        if(savedInstanceState!=null){return false;}
+                        fragmentManager.beginTransaction().add(R.id.fragment_container,new AuthorsFragment()).commit(); //ανοίγει ένα LoginFragment στο layout
+                        onMessageSendAuthors();
+                    }
                     drawerLayout.closeDrawers();
                     return true;
                 }
@@ -86,6 +93,8 @@ public class MainActivity extends AppCompatActivity implements LogInUserFragment
                 }else return false;
             }
         });
+
+
 
 
         db = FirebaseFirestore.getInstance();
@@ -110,6 +119,20 @@ public void onMessageSend(String message) {
 
     }
 
+
+    public void onMessageSendAuthors() {
+       AuthorsFragment authorsFragment=new AuthorsFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("username","Jordan");
+        authorsFragment.setArguments(bundle);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, authorsFragment, null);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+
+    }
+
+
+
 @Override
     public void onBookSend(String title) {
         BookDetails bookDetails = new BookDetails();  //επικοινωνια με αλλο fragment
@@ -117,6 +140,19 @@ public void onMessageSend(String message) {
         bundle.putString("title", title);
         bookDetails.setArguments(bundle);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, bookDetails, null);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+
+    }
+
+
+    @Override
+    public void onAuthorSend(String firstname) {
+       AuthorDetails authorDetails = new AuthorDetails();  //επικοινωνια με αλλο fragment
+        Bundle bundle = new Bundle();               //αποστολη δεδομενων μεσω πακετου bundle
+        bundle.putString("firstname", firstname);
+        authorDetails.setArguments(bundle);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, authorDetails, null);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 
