@@ -1,8 +1,11 @@
 package com.example.readingbox_154479;
 
 import android.content.Entity;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -31,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements LogInUserFragment
     NavigationView navigationView;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,11 +47,24 @@ public class MainActivity extends AppCompatActivity implements LogInUserFragment
 
         toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);    //συνδεση στοιχειων με τα views
-        getSupportActionBar().setIcon(R.drawable.toolbar_img);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);    //συνδεση στοιχειων με τα views
 
+        toolbar.setNavigationIcon(R.drawable.toolbar_img);          //clickable εικονα στο toolbar για να ανοιγει το μενου
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.open();
+            }
+        });
+
+
+
+        getSupportActionBar().setTitle("Reading Box");           //παραμετροποιηση toolbar
         drawerLayout=findViewById(R.id.drawer_layout);
         navigationView=findViewById(R.id.nav_View);
+
+
+
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override                                                                             //επιλογες για κλικ στο μενου

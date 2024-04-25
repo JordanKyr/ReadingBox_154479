@@ -8,15 +8,6 @@
     <!-- TODO: Update blank fragment layout -->
 
 
-    <TextView
-        android:id="@+id/textAppName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="24dp"
-        android:text="@string/app_name"
-        android:textSize="24sp"
-        android:textStyle="bold" />
 
     <Button
         android:id="@+id/buttonLogin"

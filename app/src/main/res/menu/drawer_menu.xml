@@ -13,14 +13,14 @@
 
     <item
         android:id="@+id/authors"
-        android:icon="@drawable/lists_img"
+        android:icon="@drawable/authors"
         android:title="Authors">
 
     </item>
 
     <item
         android:id="@+id/lists"
-        android:icon="@drawable/authors"
+        android:icon="@drawable/lists_img"
         android:title="Lists">
 
     </item>

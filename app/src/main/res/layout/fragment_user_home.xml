@@ -9,12 +9,14 @@
     >
 
     <!-- TODO: Update blank fragment layout -->
+
     <TextView
         android:id="@+id/TextUserWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_margin="14dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="70dp"
         android:text="Welcome user"
         android:textAlignment="viewStart" />
 
@@ -34,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="250dp"
-        android:backgroundTint="@color/cardview_shadow_end_color"
+        android:background="@android:color/transparent"
         android:src="@android:drawable/ic_menu_search" />
 
 
