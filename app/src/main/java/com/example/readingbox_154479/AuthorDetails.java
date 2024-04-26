@@ -87,13 +87,13 @@ public class AuthorDetails extends Fragment {
         photo=view.findViewById(R.id.imageAuthorPhoto);
 
         Bundle bundle =getArguments();                      //παιρνω απο το bundle το String
-        String searchAuthor=bundle.getString("firstname");
+        String searchAuthor=bundle.getString("lastname");
 
 
 
         collectionReference=MainActivity.db.collection("Authors");
         Query query=collectionReference.where(
-                Filter.equalTo("FirstName", searchAuthor)                    //φιλτραρισμα δεδομενων απο το query στη βαση
+                Filter.equalTo("Surname", searchAuthor)                    //φιλτραρισμα δεδομενων απο το query στη βαση
         );
         query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override

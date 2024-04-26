@@ -98,7 +98,7 @@ public class LogInUserFragment extends Fragment {
 
                username=usernameText.getText().toString();                               //παιρνει τις τιμες που εγραψε ο χρηστης
                password=passText.getText().toString();
-
+            MainActivity.username=username;
                documentReference=MainActivity.db.collection("Users").document(username);        //συνδεση με τη βαση
                documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                            @Override

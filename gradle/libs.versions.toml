@@ -11,6 +11,7 @@ googleServices = "4.4.1"
 firebaseFirestore = "24.11.1"
 navigationFragment = "2.7.7"
 navigationUi = "2.7.7"
+room="2.6.1"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -24,6 +25,10 @@ google-services = { group = "com.google.gms", name = "google-services", version.
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore", version.ref = "firebaseFirestore" }
 navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
 navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigationUi" }
+room = { group = "androidx.room", name = "room-ktx", version.ref= "room" }
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref= "room" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref= "room" }
+
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

@@ -33,8 +33,15 @@ public class MainActivity extends AppCompatActivity implements LogInUserFragment
     DrawerLayout drawerLayout;
     NavigationView navigationView;
 
-    public String username;
+    public static String username;
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +80,9 @@ public class MainActivity extends AppCompatActivity implements LogInUserFragment
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 if(menuItem.getItemId()==R.id.home){
                     displayMessage("Open Home");
+
+                  onMessageSend(username);
+
                     drawerLayout.closeDrawers();
                     return true;
                 }
@@ -80,7 +90,9 @@ public class MainActivity extends AppCompatActivity implements LogInUserFragment
                     displayMessage("Open Authors");
                     if(findViewById(R.id.fragment_container)!=null){
                         if(savedInstanceState!=null){return false;}
-                        fragmentManager.beginTransaction().add(R.id.fragment_container,new AuthorsFragment()).commit(); //ανοίγει ένα LoginFragment στο layout
+                        FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new AuthorsFragment()); //ανοίγει ένα LoginFragment στο layout
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
                         onMessageSendAuthors();
                     }
                     drawerLayout.closeDrawers();
@@ -147,10 +159,10 @@ public void onMessageSend(String message) {
 
 
     @Override
-    public void onAuthorSend(String firstname) {
+    public void onAuthorSend(String surname) {
        AuthorDetails authorDetails = new AuthorDetails();  //επικοινωνια με αλλο fragment
         Bundle bundle = new Bundle();               //αποστολη δεδομενων μεσω πακετου bundle
-        bundle.putString("firstname", firstname);
+        bundle.putString("lastname", surname);
         authorDetails.setArguments(bundle);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, authorDetails, null);
         fragmentTransaction.addToBackStack(null);

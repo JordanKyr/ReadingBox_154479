@@ -96,7 +96,7 @@ public class AuthorsFragment extends Fragment {
         welcome=view.findViewById(R.id.TextUserWelcome);
         Bundle bundle =getArguments();
         //String message=bundle.getString("username");
-        welcome.setText("Welcome Jordan");
+        welcome.setText("Welcome "+MainActivity.username);
 
         button=view.findViewById(R.id.imageButtonSearch);
         searchString=view.findViewById(R.id.editSearch);
@@ -106,54 +106,76 @@ public class AuthorsFragment extends Fragment {
             @Override
             public void onClick(View v){
 
-                search=searchString.getText().toString().trim();
-
-
-                collectionReference=MainActivity.db.collection("Authors");                //αναζητηση και φιλτραρισμα στη βαση
-
-                Query query=collectionReference.where(Filter.or(
-                        Filter.equalTo("FirstName",search),
-                        Filter.equalTo("Surname", search)
-                ));
-
-
-                query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
 
 
-                        recyclerView=view.findViewById(R.id.recycler_search);
-                        // To display the Recycler view linearly
-                        recyclerView.setHasFixedSize(true);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-                        authorsArrayList =new ArrayList<Authors>();
-                        adapter=new AuthorSearch_Adapter(getContext(),authorsArrayList);
-                        recyclerView.setAdapter(adapter);
+                    search = searchString.getText().toString().trim();
 
-                        recyclerView.setAdapter(adapter);
+                 String[]   splitSearch = search.split(" ");
 
-                        adapter.setOnClickListener(new AuthorSearch_Adapter.OnClickListener() {
-                            @Override
-                            public void onClick(int position, Authors authors) {
-                               firstName=authors.getFirstName();
-                                authorSendListener.onAuthorSend(firstName);
+                    collectionReference = MainActivity.db.collection("Authors");                //αναζητηση και φιλτραρισμα στη βαση
+                Query query;
+
+                if(splitSearch.length>1){
+                     query = collectionReference.where(Filter.or(
+                            Filter.equalTo("FirstName", splitSearch[0]),
+                            Filter.equalTo("Surname", splitSearch[1]),
+                            Filter.equalTo("Surname", splitSearch[0]),
+                            Filter.equalTo("Firstname", splitSearch[1])
+                    ));}
+                else{
+                    query = collectionReference.where(Filter.or(
+                            Filter.equalTo("FirstName", splitSearch[0]),
+
+                            Filter.equalTo("Surname", splitSearch[0])
+                          ));
+
+                }
+
+
+                    query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+
+                            recyclerView = view.findViewById(R.id.recycler_search);
+                            // To display the Recycler view linearly
+                            recyclerView.setHasFixedSize(true);
+                            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+                            authorsArrayList = new ArrayList<Authors>();
+                            adapter = new AuthorSearch_Adapter(getContext(), authorsArrayList);
+                            recyclerView.setAdapter(adapter);
+
+                            recyclerView.setAdapter(adapter);
+
+                            adapter.setOnClickListener(new AuthorSearch_Adapter.OnClickListener() {
+                                @Override
+                                public void onClick(int position, Authors authors) {
+                                    lastName = authors.getSurname();
+                                    authorSendListener.onAuthorSend(lastName);
+                                }
+                            });
+
+                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {        //για καθε αντικειμενο που μου δινει το query
+                                authorsArrayList.add(documentSnapshot.toObject(Authors.class));          //προσθεση και εμφανιση στοιχειων στο recycler
+
                             }
-                        });
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getActivity(), "query operation failed.", Toast.LENGTH_LONG).show();
+                        }
+                    });
 
-                        for(QueryDocumentSnapshot documentSnapshot: queryDocumentSnapshots){        //για καθε αντικειμενο που μου δινει το query
-                            authorsArrayList.add(documentSnapshot.toObject(Authors.class));          //προσθεση και εμφανιση στοιχειων στο recycler
 
-                        }}
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getActivity(),"query operation failed.",Toast.LENGTH_LONG).show();
-                    }});
 
             }
-        });
+        }      );
+
+
         return view;
 
     }
