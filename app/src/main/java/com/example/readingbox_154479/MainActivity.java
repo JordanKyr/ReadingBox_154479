@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements LogInUserFragment
                     displayMessage("Open Authors");
                     if(findViewById(R.id.fragment_container)!=null){
                         if(savedInstanceState!=null){return false;}
-                        FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new AuthorsFragment()); //ανοίγει ένα LoginFragment στο layout
+                        FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new AuthorsFragment()); //ανοίγει ένα AuthorFragment στο layout
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
                         onMessageSendAuthors();
@@ -106,6 +106,17 @@ public class MainActivity extends AppCompatActivity implements LogInUserFragment
                 }
                 else if(menuItem.getItemId()==R.id.lists){
                     displayMessage("Open Want to Read");
+
+                    if(findViewById(R.id.fragment_container)!=null){
+
+                        ToReadFragment toReadFragment=new ToReadFragment();
+                        if(savedInstanceState!=null){return false;}
+                        FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,toReadFragment); //ανοίγει ένα ToreadFragment στο layout
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+
+                    }
+
                     drawerLayout.closeDrawers();
                     return true;
                 }else return false;

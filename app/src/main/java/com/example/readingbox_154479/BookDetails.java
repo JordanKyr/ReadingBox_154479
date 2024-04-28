@@ -8,10 +8,14 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.readingbox_154479.database.ListBook;
+import com.example.readingbox_154479.database.ListUser;
+import com.example.readingbox_154479.database.WantToRead;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
@@ -64,8 +68,9 @@ public class BookDetails extends Fragment {
 
     ImageView cover;
     TextView bookDetails;
-
-
+ Button addWant, addRead;
+    String  isbn="";
+    String title="";
     CollectionReference collectionReference;
 
     @Override
@@ -85,6 +90,12 @@ public class BookDetails extends Fragment {
     bookDetails=view.findViewById(R.id.textBookDet);  //συνδεση στοιχειων του layout
     cover=view.findViewById(R.id.imageViewCover);
 
+
+        addWant=view.findViewById(R.id.btnWant);
+        addRead=view.findViewById(R.id.btnAlreadyRead);
+
+
+
         Bundle bundle =getArguments();                      //παιρνω απο το bundle το String
         String searchTitle=bundle.getString("title");
 
@@ -99,15 +110,14 @@ public class BookDetails extends Fragment {
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 String result="";
                 String imgURL="";
+
                 for(QueryDocumentSnapshot documentSnapshot: queryDocumentSnapshots){
                     Books books=documentSnapshot.toObject(Books.class);
                     String author=books.getAuthor();
                     Integer pubyear=books.getPubYear();
-                    String title=books.getTitle();
+                    title=books.getTitle();
                     imgURL=books.getCover();
-
-                    String isbn=documentSnapshot.getId();
-
+                    isbn=documentSnapshot.getId();
                     List<String> genres= new ArrayList<>();   //παιρνω τη λιστα με το Genre και φτιαχνω ενα string
                     genres=  books.getGenre();
 
@@ -119,9 +129,55 @@ public class BookDetails extends Fragment {
 
 
                     result+=" Author: "+author+"\n Title: "+title+"\n Publication Year: "+pubyear+"\n Genre: "+genresString+"\n ISBN: "+ isbn +"\n";
+
+                    addWant.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String var_uid=MainActivity.global_userID;
+                            String var_bid=isbn;
+                            try {
+                                ListUser listUser=new ListUser();
+                                listUser.setListUserID(var_uid);                                //ελεγχος για υπαρξη χρηστη---να μετακινηθει?
+                                MainActivity.listDatabase.rbDao().upsertUser(listUser);
+
+
+                                ListBook listBook=new ListBook();
+                                listBook.setListISBN(var_bid);
+                                MainActivity.listDatabase.rbDao().upsertBook(listBook);
+
+
+
+                                WantToRead wantToRead = new WantToRead();
+                                wantToRead.setTr_ISBN(var_bid);                 //δημιουργια αντικειμενου λιστας για διαβασμα
+                                wantToRead.setTr_UserID(var_uid);               //εισαγωγη στοιχειων του
+
+
+
+
+                                MainActivity.listDatabase.rbDao().insertWantRead(wantToRead);           //εκτελση insert στη βαση
+
+
+                                Toast.makeText(getActivity(), title+ " added to your Want To Read!", Toast.LENGTH_LONG).show();
+                            } catch(Exception e){
+                                        String message=e.getMessage();
+                                        Toast.makeText(getActivity(),message,Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+
                 }
                 bookDetails.setText(result);
                 Picasso.get().load(imgURL).into(cover);
+
+
+
+
+
+
+
+
+
 
 
             }

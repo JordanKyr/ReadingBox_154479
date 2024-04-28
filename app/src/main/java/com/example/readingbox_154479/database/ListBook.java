@@ -1,6 +1,7 @@
 package com.example.readingbox_154479.database;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -16,7 +17,7 @@ public class ListBook {
     private String listISBN;
 
     @ColumnInfo(name="books_title")
-    private String listBooks;
+    private String listTitle;
 
     @NonNull
     public String getListISBN() {
@@ -27,12 +28,12 @@ public class ListBook {
         this.listISBN = listISBN;
     }
 
-    public String getListBooks() {
-        return listBooks;
+    public String getListTitle() {
+        return listTitle;
     }
 
-    public void setListBooks(String listBooks) {
-        this.listBooks = listBooks;
+    public void setListTitle(String listBooks) {
+        this.listTitle = listTitle;
     }
 
     public String getListAuthor() {
@@ -51,13 +52,7 @@ public class ListBook {
         this.pubYear = pubYear;
     }
 
-    public List<String> getList_Genre() {
-        return list_Genre;
-    }
 
-    public void setList_Genre(List<String> list_Genre) {
-        this.list_Genre = list_Genre;
-    }
 
     public String getListCover() {
         return listCover;
@@ -70,12 +65,11 @@ public class ListBook {
     @ColumnInfo(name="books_author")
     private String listAuthor;
 
+    @Nullable
     @ColumnInfo(name="books_pubYear")
     private int pubYear;
 
-    @ColumnInfo(name="books_genre")
-    private List<String> list_Genre;
-
+    @Nullable
     @ColumnInfo(name="books_cover")
     private String listCover;
 

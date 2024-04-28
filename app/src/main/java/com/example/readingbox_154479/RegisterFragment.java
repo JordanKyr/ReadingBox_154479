@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.readingbox_154479.database.ListUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -89,6 +90,9 @@ public class RegisterFragment extends Fragment {
                         Users users=new Users();                    //φτιαχνει αντικειμενο για τη βαση δεδομενων
                         users.setUsername(reg_username);
                         users.setPassword(reg_password);                //εισαγωγη αντικειμενου στη βαση
+
+
+
                         MainActivity.db.collection("Users").document(""+reg_username).set(users).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
