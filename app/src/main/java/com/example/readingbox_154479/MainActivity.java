@@ -20,19 +20,23 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.room.Room;
 
+import com.example.readingbox_154479.database.RB_DB;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity implements LogInUserFragment.OnMessageSendListener, UserHome.OnBookSendListener, AuthorsFragment.OnAuthorSendListener{
 
 
+    public static RB_DB listDatabase;
     public static FragmentManager fragmentManager;
     public static FirebaseFirestore db;
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
 
+    public static String global_userID;
     public static String username;
 
     public String getUsername() {
@@ -53,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements LogInUserFragment
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        listDatabase= Room.databaseBuilder(getApplicationContext(),RB_DB.class,"listDB").allowMainThreadQueries().build(); //δημιουργια και αρχικοποιησης τοπικης βασης
 
         toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -99,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements LogInUserFragment
                     return true;
                 }
                 else if(menuItem.getItemId()==R.id.lists){
-                    displayMessage("Open Lists");
+                    displayMessage("Open Want to Read");
                     drawerLayout.closeDrawers();
                     return true;
                 }else return false;

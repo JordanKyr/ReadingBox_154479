@@ -16,8 +16,13 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.Filter;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.w3c.dom.Document;
 
@@ -70,9 +75,9 @@ public class LogInUserFragment extends Fragment {
 
 
     EditText usernameText, passText;
-    String username,password;
+    String username,password, userID;
     Button login_button;
-
+   CollectionReference usersRef;
     OnMessageSendListener messageSendListener;
     public interface OnMessageSendListener{
         public void onMessageSend(String message);
@@ -92,32 +97,47 @@ public class LogInUserFragment extends Fragment {
        login_button=view.findViewById(R.id.buttonLogSubmit);
        login_button.setOnClickListener(new View.OnClickListener() {         //λειτουργια αν πατηθει το κουμπι
 
-           DocumentReference documentReference;
+
            @Override
            public void onClick(View v) {
 
-               username=usernameText.getText().toString();                               //παιρνει τις τιμες που εγραψε ο χρηστης
+               username=usernameText.getText().toString().trim();                               //παιρνει τις τιμες που εγραψε ο χρηστης
                password=passText.getText().toString();
-            MainActivity.username=username;
-               documentReference=MainActivity.db.collection("Users").document(username);        //συνδεση με τη βαση
-               documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+
+
+
+               usersRef=MainActivity.db.collection("Users");
+               Query query=usersRef.where(Filter.equalTo("username",username));
+
+               query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                            @Override
-                           public void onSuccess(DocumentSnapshot documentSnapshot) {
+                           public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
-                                if(documentSnapshot.exists()){                                          //ελεγχος για συνδεση
-                                   String dbpass=documentSnapshot.getString("password");
-                                    if(password.equals(dbpass)){
-                                        Toast.makeText(getActivity(),"user logged in",Toast.LENGTH_LONG).show();
-
-                                        messageSendListener.onMessageSend(username);
+                               if(queryDocumentSnapshots.size()>0){
 
 
+                               for(QueryDocumentSnapshot documentSnapshot: queryDocumentSnapshots){
+
+                                   if(documentSnapshot.exists()) {
+
+                                        userID=documentSnapshot.getId();
+                                       String dbpsw = documentSnapshot.getString("password");
+                                       if(password.equals(dbpsw)){
+                                           Toast.makeText(getActivity(),userID+" user  logged in",Toast.LENGTH_LONG).show();
+                                           MainActivity.username=username;
+                                           MainActivity.global_userID=documentSnapshot.getId();
 
 
-                                    }
-                                    else Toast.makeText(getActivity(),"user NOT logged in",Toast.LENGTH_LONG).show();
 
-                                }
+
+                                           messageSendListener.onMessageSend(username);
+                                   }else Toast.makeText(getActivity(),"user NOT logged in",Toast.LENGTH_LONG).show();
+                               } }
+
+
+
+
+                                }else Toast.makeText(getActivity(),"user does NOT exists",Toast.LENGTH_LONG).show();
                            }
                        }).addOnFailureListener(new OnFailureListener() {
                    @Override

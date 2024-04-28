@@ -21,7 +21,7 @@
     <item
         android:id="@+id/lists"
         android:icon="@drawable/lists_img"
-        android:title="Lists">
+        android:title="Want to Read">
 
     </item>
 
