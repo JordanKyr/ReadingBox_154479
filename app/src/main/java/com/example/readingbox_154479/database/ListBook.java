@@ -32,7 +32,7 @@ public class ListBook {
         return listTitle;
     }
 
-    public void setListTitle(String listBooks) {
+    public void setListTitle(String listTitle) {
         this.listTitle = listTitle;
     }
 

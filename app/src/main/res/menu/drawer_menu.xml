@@ -25,6 +25,12 @@
 
     </item>
 
+     <item
+         android:id="@+id/shelf"
+         android:icon="@drawable/shelf"
+         android:title="My Shelf">
+    </item>
+
 </group>
 
 

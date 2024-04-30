@@ -1,4 +1,4 @@
-package com.example.readingbox_154479;
+package com.example.readingbox_154479.adapters;
 
 
 import android.content.Context;
@@ -6,6 +6,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,11 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.readingbox_154479.database.ListBook;
+import com.example.readingbox_154479.R;
 
 import com.example.readingbox_154479.database.WantToRead;
-import com.squareup.picasso.Picasso;
-
 
 
 import java.util.ArrayList;
@@ -39,10 +38,12 @@ public class WantRead_Adapter extends RecyclerView.Adapter<WantRead_Adapter.want
     public void onBindViewHolder(@NonNull wantViewHolder holder, int position) {
         //assigning values to rows based on the recycler view position
 
-
-        WantToRead want= wantArrayList.get(position);
+        int pst=position;
+        WantToRead want= wantArrayList.get(pst);
         holder.author.setText(want.getTr_ISBN());
         holder.title.setText(want.getTr_UserID());
+
+
 
         //Picasso.get().load(want.getListCover()).into(holder.cover);
 
@@ -50,7 +51,7 @@ public class WantRead_Adapter extends RecyclerView.Adapter<WantRead_Adapter.want
             @Override
             public void onClick(View v) {
                 if (onClickListener != null) {
-                    onClickListener.onClick(position, want);
+                    onClickListener.onClick(pst, want);
                 }
             }
         });
@@ -87,7 +88,7 @@ public class WantRead_Adapter extends RecyclerView.Adapter<WantRead_Adapter.want
         CardView cardView;
         TextView author,title;
         ImageView cover;
-        String coverURL;
+        Button removeBook;
         public wantViewHolder(@NonNull View itemView){         //αναφορες στα αντικειμενα του view
             super(itemView);
             cover=itemView.findViewById(R.id.recyclerImage);

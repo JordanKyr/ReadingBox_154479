@@ -26,7 +26,7 @@ import com.example.readingbox_154479.database.RB_DB;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class MainActivity extends AppCompatActivity implements LogInUserFragment.OnMessageSendListener, UserHome.OnBookSendListener, AuthorsFragment.OnAuthorSendListener{
+public class MainActivity extends AppCompatActivity implements LogInUserFragment.OnMessageSendListener, UserHome.OnBookSendListener,ToReadFragment.OnBookSendListener, AuthorsFragment.OnAuthorSendListener, ShelfFragment.OnBookSendListener, AuthorDetails.OnBookSendListener{
 
 
     public static RB_DB listDatabase;
@@ -106,25 +106,28 @@ public class MainActivity extends AppCompatActivity implements LogInUserFragment
                 }
                 else if(menuItem.getItemId()==R.id.lists){
                     displayMessage("Open Want to Read");
-
+                    boolean cond=false;
                     if(findViewById(R.id.fragment_container)!=null){
-
-                        ToReadFragment toReadFragment=new ToReadFragment();
-                        if(savedInstanceState!=null){return false;}
-                        FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,toReadFragment); //ανοίγει ένα ToreadFragment στο layout
-                        fragmentTransaction.addToBackStack(null);
-                        fragmentTransaction.commit();
-
+                        cond=goToWantRead(savedInstanceState);    //opens Want To Read
                     }
 
                     drawerLayout.closeDrawers();
-                    return true;
-                }else return false;
+                    return cond;
+                }
+                else if(menuItem.getItemId()==R.id.shelf){
+
+                    displayMessage("Open My Shelf");
+                    boolean cond=false;
+                    if(findViewById(R.id.fragment_container)!=null){
+                        cond=goToShelf(savedInstanceState);
+
+                    }
+                    drawerLayout.closeDrawers();
+                    return cond;
+                }
+                else return false;
             }
         });
-
-
-
 
         db = FirebaseFirestore.getInstance();
         fragmentManager=getSupportFragmentManager();
@@ -135,6 +138,28 @@ public class MainActivity extends AppCompatActivity implements LogInUserFragment
             }
     }
 
+    public boolean goToShelf(Bundle savedInstanceState){
+
+        ShelfFragment shelfFragment=new ShelfFragment();
+        if(savedInstanceState!=null){return false;}
+        FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,shelfFragment); //ανοίγει ένα ToreadFragment στο layout
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        return true;
+
+    }
+
+
+    public boolean goToWantRead(Bundle savedInstanceState){
+
+        ToReadFragment toReadFragment=new ToReadFragment();
+        if(savedInstanceState!=null){return false;}
+        FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,toReadFragment); //ανοίγει ένα ToreadFragment στο layout
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        return true;
+
+    }
 
     @Override
 public void onMessageSend(String message) {
@@ -176,10 +201,11 @@ public void onMessageSend(String message) {
 
 
     @Override
-    public void onAuthorSend(String surname) {
+    public void onAuthorSend(String lastName, String firstName) {
        AuthorDetails authorDetails = new AuthorDetails();  //επικοινωνια με αλλο fragment
         Bundle bundle = new Bundle();               //αποστολη δεδομενων μεσω πακετου bundle
-        bundle.putString("lastname", surname);
+        bundle.putString("lastName", lastName);
+        bundle.putString("firstName", firstName);
         authorDetails.setArguments(bundle);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, authorDetails, null);
         fragmentTransaction.addToBackStack(null);

@@ -9,12 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.readingbox_154479.database.ListBook;
 import com.example.readingbox_154479.database.ListUser;
+import com.example.readingbox_154479.database.ShelfBooks;
 import com.example.readingbox_154479.database.WantToRead;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -68,9 +70,12 @@ public class BookDetails extends Fragment {
 
     ImageView cover;
     TextView bookDetails;
- Button addWant, addRead;
+ Button addWant, addShelf;
     String  isbn="";
     String title="";
+    String author="";
+    Integer pubyear=0;
+    String imgURL="";
     CollectionReference collectionReference;
 
     @Override
@@ -92,7 +97,7 @@ public class BookDetails extends Fragment {
 
 
         addWant=view.findViewById(R.id.btnWant);
-        addRead=view.findViewById(R.id.btnAlreadyRead);
+        addShelf=view.findViewById(R.id.btnShelf);
 
 
 
@@ -109,12 +114,12 @@ public class BookDetails extends Fragment {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 String result="";
-                String imgURL="";
+                    imgURL="";
 
                 for(QueryDocumentSnapshot documentSnapshot: queryDocumentSnapshots){
                     Books books=documentSnapshot.toObject(Books.class);
-                    String author=books.getAuthor();
-                    Integer pubyear=books.getPubYear();
+                    author=books.getAuthor();
+                    pubyear=books.getPubYear();
                     title=books.getTitle();
                     imgURL=books.getCover();
                     isbn=documentSnapshot.getId();
@@ -130,11 +135,28 @@ public class BookDetails extends Fragment {
 
                     result+=" Author: "+author+"\n Title: "+title+"\n Publication Year: "+pubyear+"\n Genre: "+genresString+"\n ISBN: "+ isbn +"\n";
 
+                    String checkShelf="";
+                    checkShelf+=MainActivity.listDatabase.rbDao().checkShelf(isbn);
+                        if(checkShelf.equals(isbn)) {                                              //elegxos an iparxei idi stis listes
+                        addShelf.setEnabled(false);               //apenergopoio ta klik an to exo valei tora
+                        addShelf.setText("Already in 'Shelf'");}
+
+                    String checktoRead="";
+                    checktoRead+=MainActivity.listDatabase.rbDao().checktoRead(isbn);
+                    if(checktoRead.equals(isbn)) {                                              //elegxos an iparxei idi stis listes
+                        addWant.setEnabled(false);               //apenergopoio ta klik an to exo valei tora
+                        addWant.setText("Already in 'Want to Read'");}
+
                     addWant.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             String var_uid=MainActivity.global_userID;
                             String var_bid=isbn;
+                            String var_author=author;
+                            String var_title=title;
+                            Integer var_pubyear=pubyear;
+                            String var_cover=imgURL;
+
                             try {
                                 ListUser listUser=new ListUser();
                                 listUser.setListUserID(var_uid);                                //ελεγχος για υπαρξη χρηστη---να μετακινηθει?
@@ -143,6 +165,10 @@ public class BookDetails extends Fragment {
 
                                 ListBook listBook=new ListBook();
                                 listBook.setListISBN(var_bid);
+                                listBook.setListAuthor(var_author);
+                                listBook.setListTitle(var_title);
+                                listBook.setPubYear(var_pubyear);
+                                listBook.setListCover(var_cover);
                                 MainActivity.listDatabase.rbDao().upsertBook(listBook);
 
 
@@ -157,7 +183,9 @@ public class BookDetails extends Fragment {
                                 MainActivity.listDatabase.rbDao().insertWantRead(wantToRead);           //εκτελση insert στη βαση
 
 
-                                Toast.makeText(getActivity(), title+ " added to your Want To Read!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getActivity(), title+ " added to your 'Want To Read'!", Toast.LENGTH_LONG).show();
+                                addWant.setEnabled(false);                                                 //apenergopoio ta klik
+                                addWant.setText("Added to 'Want to Read'");
                             } catch(Exception e){
                                         String message=e.getMessage();
                                         Toast.makeText(getActivity(),message,Toast.LENGTH_SHORT).show();
@@ -166,6 +194,54 @@ public class BookDetails extends Fragment {
                     });
 
 
+
+                    addShelf.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String var_uid=MainActivity.global_userID;
+                            String var_bid=isbn;
+                            String var_author=author;
+                            String var_title=title;
+                            Integer var_pubyear=pubyear;
+                            String var_cover=imgURL;
+
+                            try {
+                                ListUser listUser=new ListUser();
+                                listUser.setListUserID(var_uid);                                //ελεγχος για υπαρξη χρηστη---να μετακινηθει?
+                                MainActivity.listDatabase.rbDao().upsertUser(listUser);
+
+
+                                ListBook listBook=new ListBook();
+                                listBook.setListISBN(var_bid);
+                                listBook.setListAuthor(var_author);
+                                listBook.setListTitle(var_title);
+                                listBook.setPubYear(var_pubyear);
+                                listBook.setListCover(var_cover);
+                                MainActivity.listDatabase.rbDao().upsertBook(listBook);
+
+
+
+                                ShelfBooks shelfBooks = new ShelfBooks();
+                                shelfBooks.setShelf_ISBN(var_bid);                 //δημιουργια αντικειμενου λιστας που εχουν διαβαστει
+                                shelfBooks.setShelf_UserID(var_uid);               //εισαγωγη στοιχειων του
+
+
+
+
+                                MainActivity.listDatabase.rbDao().insertShef(shelfBooks);           //εκτελση insert στη βαση
+
+
+                                Toast.makeText(getActivity(), title+ " added to your Shelf!", Toast.LENGTH_LONG).show();
+
+                                addShelf.setEnabled(false);               //apenergopoio ta klik
+                                addShelf.setText("Added to Shelf");
+
+                            } catch(Exception e){
+                                String message=e.getMessage();
+                                Toast.makeText(getActivity(),message,Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 }
                 bookDetails.setText(result);
                 Picasso.get().load(imgURL).into(cover);

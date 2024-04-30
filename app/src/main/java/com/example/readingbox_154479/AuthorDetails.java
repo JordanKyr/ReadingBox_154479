@@ -1,9 +1,13 @@
 package com.example.readingbox_154479;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.readingbox_154479.adapters.BookSearch_Adapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
@@ -65,8 +70,13 @@ public class AuthorDetails extends Fragment {
 
     ImageView photo;
     TextView authorDetails;
-
+    ArrayList<Books> booksArrayList;
+    RecyclerView recyclerView;
     CollectionReference collectionReference;
+
+    String title;
+    BookSearch_Adapter bookSearchAdapter;
+    OnBookSendListener bookSendListener;
 
 
     @Override
@@ -87,16 +97,19 @@ public class AuthorDetails extends Fragment {
         photo=view.findViewById(R.id.imageAuthorPhoto);
 
         Bundle bundle =getArguments();                      //παιρνω απο το bundle το String
-        String searchAuthor=bundle.getString("lastname");
+        String searchFirst=bundle.getString("firstName");
+        String searchLast=bundle.getString("lastName");
 
 
 
         collectionReference=MainActivity.db.collection("Authors");
-        Query query=collectionReference.where(
-                Filter.equalTo("Surname", searchAuthor)                    //φιλτραρισμα δεδομενων απο το query στη βαση
-        );
-        query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
+        Query query=collectionReference.where(Filter.and(
+                Filter.equalTo("Surname", searchLast),                    //φιλτραρισμα δεδομενων απο το query στη βαση
+                Filter.equalTo("FirstName",searchFirst)));
+
+
+                query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override                                                                               //emfanisi stoixeion siggrafea
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 String result="";
                 String imgURL="";
@@ -121,7 +134,64 @@ public class AuthorDetails extends Fragment {
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(getActivity(),"query operation failed.",Toast.LENGTH_LONG).show();
             }});
+                                                                                                            //emfanisi vivlion toy siggrafea
+
+
+        collectionReference=MainActivity.db.collection("Books");
+        query=collectionReference.whereEqualTo("Author",searchFirst+" "+searchLast);
+
+        query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+
+
+                recyclerView=view.findViewById(R.id.recycler_search);
+                // To display the Recycler view linearly
+                recyclerView.setHasFixedSize(true);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+                booksArrayList =new ArrayList<Books>();
+                bookSearchAdapter=new BookSearch_Adapter(getContext(),booksArrayList);
+                recyclerView.setAdapter(bookSearchAdapter);
+
+                recyclerView.setAdapter(bookSearchAdapter);
+
+                bookSearchAdapter.setOnClickListener(new BookSearch_Adapter.OnClickListener() {
+                    @Override
+                    public void onClick(int position, Books books) {
+                        title=books.getTitle();
+                        bookSendListener.onBookSend(title);
+                    }
+                });
+
+                for(QueryDocumentSnapshot documentSnapshot: queryDocumentSnapshots){        //για καθε αντικειμενο που μου δινει το query
+                    booksArrayList.add(documentSnapshot.toObject(Books.class));          //προσθεση και εμφανιση στοιχειων στο recycler
+
+                }}
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getActivity(),"query operation failed.",Toast.LENGTH_LONG).show();
+            }});
 
         return view;
     }
+
+
+    @Override
+    public void onAttach(@NonNull Context context){
+        super.onAttach(context);
+        Activity activity=(Activity) context;
+        try{
+            bookSendListener=(OnBookSendListener) activity;
+        }catch (ClassCastException e){
+            throw new ClassCastException(activity.toString()+" must implement onBookSend ");
+        }
+    }
+
+    public interface OnBookSendListener{
+        public void onBookSend(String message);
+    }
+
 }

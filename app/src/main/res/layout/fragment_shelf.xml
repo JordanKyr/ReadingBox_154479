@@ -3,32 +3,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AuthorDetails">
+    tools:context=".ShelfFragment">
 
     <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/TextUserWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="70dp"
+        android:text="Welcome user"
+        android:textAlignment="viewStart" />
 
     <TextView
-        android:id="@+id/textAuthorDet"
+        android:id="@+id/myShelf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="300dp"
-        android:text="@string/hello_blank_fragment" />
-
-    <ImageView
-        android:id="@+id/imageAuthorPhoto"
-        android:layout_width="wrap_content"
-        android:layout_height="180dp"
-        android:adjustViewBounds="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="100dp"
-        android:src="@android:drawable/ic_menu_gallery" />
-
+        android:layout_marginTop="120dp"
+        android:text="My Shelf"
+        android:textSize="20sp" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/resultLayout"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="432dp"
         android:layout_gravity="bottom|center_horizontal"
         android:orientation="vertical">
 

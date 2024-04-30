@@ -1,4 +1,4 @@
-package com.example.readingbox_154479;
+package com.example.readingbox_154479.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.readingbox_154479.Authors;
+import com.example.readingbox_154479.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -33,8 +35,8 @@ public class AuthorSearch_Adapter extends RecyclerView.Adapter<AuthorSearch_Adap
     public void onBindViewHolder(@NonNull AuthorSearch_Adapter.authorsViewHolder holder, int position) {
         //assigning values to rows based on the recycler view position
 
-
-        Authors authors= authorsArrayList.get(position);
+        int pst=position;
+        Authors authors= authorsArrayList.get(pst);
         holder.firstname.setText(authors.getFirstName());
         holder.surname.setText(authors.getSurname());
 
@@ -44,7 +46,7 @@ public class AuthorSearch_Adapter extends RecyclerView.Adapter<AuthorSearch_Adap
             @Override
             public void onClick(View v) {
                 if (onClickListener != null) {
-                    onClickListener.onClick(position,authors);
+                    onClickListener.onClick(pst,authors);
                 }
             }
         });

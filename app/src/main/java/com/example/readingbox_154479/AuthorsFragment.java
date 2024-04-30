@@ -18,6 +18,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.readingbox_154479.adapters.AuthorSearch_Adapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
@@ -71,7 +72,7 @@ public class AuthorsFragment extends Fragment {
     ImageButton button ;
     EditText searchString;
     CollectionReference collectionReference;
-    String firstName, lastName, search;
+    String firstName, lastName, search, authorID;
     RecyclerView recyclerView;
     AuthorSearch_Adapter adapter;
     ArrayList<Authors> authorsArrayList;
@@ -154,13 +155,14 @@ public class AuthorsFragment extends Fragment {
                                 @Override
                                 public void onClick(int position, Authors authors) {
                                     lastName = authors.getSurname();
-                                    authorSendListener.onAuthorSend(lastName);
+                                    firstName=authors.getFirstName();
+                                    authorSendListener.onAuthorSend(lastName,firstName);          //stelno ta onomateponimo
                                 }
                             });
 
                             for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {        //για καθε αντικειμενο που μου δινει το query
                                 authorsArrayList.add(documentSnapshot.toObject(Authors.class));          //προσθεση και εμφανιση στοιχειων στο recycler
-
+                                authorID=documentSnapshot.getId();
                             }
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -193,7 +195,7 @@ public class AuthorsFragment extends Fragment {
     }
 
     public interface OnAuthorSendListener{
-        public void onAuthorSend(String message);
+        public void onAuthorSend(String lastName, String firstName);
     }
 
 

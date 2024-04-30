@@ -29,12 +29,13 @@
         android:layout_height="match_parent">
 
         <Button
-            android:id="@+id/btnAlreadyRead"
-            android:layout_width="wrap_content"
+            android:id="@+id/btnShelf"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="76dp"
-            android:layout_marginEnd="38dp"
-            android:text="Already Read!"
+            android:layout_marginEnd="18dp"
+            android:maxLines="2"
+            android:text="Add to 'Shelf'"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnWant"
             app:layout_constraintStart_toStartOf="parent"
@@ -43,14 +44,15 @@
 
         <Button
             android:id="@+id/btnWant"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="38dp"
+            android:layout_marginStart="18dp"
             android:layout_marginEnd="76dp"
+            android:maxLines="2"
             android:text="Want to Read"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btnAlreadyRead"
+            app:layout_constraintStart_toEndOf="@+id/btnShelf"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.638" />
     </androidx.constraintlayout.widget.ConstraintLayout>

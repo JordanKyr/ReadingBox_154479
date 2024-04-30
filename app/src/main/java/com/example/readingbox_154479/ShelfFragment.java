@@ -6,7 +6,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.LinearLayoutCompat;
-import androidx.constraintlayout.helper.widget.Carousel;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,23 +13,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.readingbox_154479.adapters.ListBookSearch_Adapter;
-import com.example.readingbox_154479.adapters.WantRead_Adapter;
+import com.example.readingbox_154479.adapters.Shelf_Adapter;
 import com.example.readingbox_154479.database.ListBook;
-import com.example.readingbox_154479.database.WantToRead;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ToReadFragment#newInstance} factory method to
+ * Use the {@link ShelfFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ToReadFragment extends Fragment {
+public class ShelfFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -41,7 +37,7 @@ public class ToReadFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public ToReadFragment() {
+    public ShelfFragment() {
         // Required empty public constructor
     }
 
@@ -51,11 +47,11 @@ public class ToReadFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ToReadFragment.
+     * @return A new instance of fragment ShelfFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ToReadFragment newInstance(String param1, String param2) {
-        ToReadFragment fragment = new ToReadFragment();
+    public static ShelfFragment newInstance(String param1, String param2) {
+        ShelfFragment fragment = new ShelfFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -63,17 +59,13 @@ public class ToReadFragment extends Fragment {
         return fragment;
     }
 
-
-
-    WantRead_Adapter adapter;
-    ListBookSearch_Adapter adapterBook;
-
+    Shelf_Adapter adapterBook;
+String title;
     RecyclerView recyclerView;
     LinearLayoutCompat resultLayout;
     TextView welcome;
-String title;
-OnBookSendListener bookSendListener;
 
+    OnBookSendListener onBookSendListener;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,42 +79,34 @@ OnBookSendListener bookSendListener;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_to_read, container, false);
+        View view=inflater.inflate(R.layout.fragment_shelf, container, false);
 
         resultLayout=view.findViewById(R.id.resultLayout);
         welcome=view.findViewById(R.id.TextUserWelcome);
         welcome.setText("Welcome "+MainActivity.username);
 
-    /*    ArrayList<WantToRead> toRead= (ArrayList<WantToRead>) MainActivity.listDatabase.rbDao().getToRead();
-
-
-        recyclerView = view.findViewById(R.id.recycler_search);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-       // wantBooks = new ArrayList<WantToRead>();
-        adapter = new WantRead_Adapter(getContext(), toRead);
-        recyclerView.setAdapter(adapter);
-
-*/
-        ArrayList<ListBook> toRead= (ArrayList<ListBook>) MainActivity.listDatabase.rbDao().getBooksToRead();
+        ArrayList<ListBook> toShelf= (ArrayList<ListBook>) MainActivity.listDatabase.rbDao().getShelfBooks();
 
         recyclerView = view.findViewById(R.id.recycler_search);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // wantBooks = new ArrayList<WantToRead>();
-        adapterBook = new ListBookSearch_Adapter(getContext(), toRead);
+
+        adapterBook = new  Shelf_Adapter(getContext(), toShelf);
         recyclerView.setAdapter(adapterBook);
-    //    adapterBook.notifyDataSetChanged();
 
-        adapterBook.setOnClickListener(new ListBookSearch_Adapter.OnClickListener() {
+        adapterBook.setOnClickListener(new Shelf_Adapter.OnClickListener() {
             @Override
             public void onClick(int position, ListBook books) {
                 title=books.getListTitle();
-                bookSendListener.onBookSend(title);
+                onBookSendListener.onBookSend(title);
             }
         });
+
+
+
+
+
 
 
 
@@ -134,7 +118,7 @@ OnBookSendListener bookSendListener;
         super.onAttach(context);
         Activity activity=(Activity) context;
         try{
-            bookSendListener=(OnBookSendListener) activity;
+            onBookSendListener=(OnBookSendListener) activity;
         }catch (ClassCastException e){
             throw new ClassCastException(activity.toString()+" must implement onBookSend ");
         }
@@ -144,5 +128,4 @@ OnBookSendListener bookSendListener;
     public interface OnBookSendListener{
         public void onBookSend(String message);
     }
-
 }

@@ -1,24 +1,20 @@
-package com.example.readingbox_154479;
-
-import static java.security.AccessController.getContext;
+package com.example.readingbox_154479.adapters;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.squareup.picasso.Picasso;
 
-import org.checkerframework.checker.units.qual.N;
-import org.w3c.dom.Text;
+import com.example.readingbox_154479.Books;
+import com.example.readingbox_154479.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -39,8 +35,8 @@ public class BookSearch_Adapter extends RecyclerView.Adapter<BookSearch_Adapter.
    public void onBindViewHolder(@NonNull booksViewHolder holder, int position) {
         //assigning values to rows based on the recycler view position
 
-
-        Books books= booksArrayList.get(position);
+        int pst=position;
+        Books books= booksArrayList.get(pst);
         holder.author.setText(books.getAuthor());
         holder.title.setText(books.getTitle());
 
@@ -50,7 +46,7 @@ public class BookSearch_Adapter extends RecyclerView.Adapter<BookSearch_Adapter.
             @Override
             public void onClick(View v) {
                 if (onClickListener != null) {
-                    onClickListener.onClick(position, books);
+                    onClickListener.onClick(pst, books);
                 }
             }
         });
@@ -87,6 +83,7 @@ public class BookSearch_Adapter extends RecyclerView.Adapter<BookSearch_Adapter.
         CardView cardView;
         TextView author,title;
         ImageView cover;
+
         String coverURL;
         public booksViewHolder(@NonNull View itemView){         //αναφορες στα αντικειμενα του view
             super(itemView);
