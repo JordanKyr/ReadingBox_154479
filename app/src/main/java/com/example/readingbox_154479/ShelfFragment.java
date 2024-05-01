@@ -85,7 +85,7 @@ String title;
         welcome=view.findViewById(R.id.TextUserWelcome);
         welcome.setText("Welcome "+MainActivity.username);
 
-        ArrayList<ListBook> toShelf= (ArrayList<ListBook>) MainActivity.listDatabase.rbDao().getShelfBooks();
+        ArrayList<ListBook> toShelf= (ArrayList<ListBook>) MainActivity.listDatabase.rbDao().getShelfBooks(MainActivity.global_userID);
 
         recyclerView = view.findViewById(R.id.recycler_search);
         recyclerView.setHasFixedSize(true);

@@ -2,5 +2,15 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="yellow">#FFD79D</color>
+
+
+
+    <color name="blue_gray">#90ADC6</color>
+    <color name="pewter">#FFF8EB</color>
+    <color name="dark_blue">#333652</color>
+    <color name="yellow">#FAD02C</color>
+
+    <color name="light_blue_gray">#F1F6FA</color>
+    <color name="lighter_blue_gray">#F9FCFF</color>
+
 </resources>

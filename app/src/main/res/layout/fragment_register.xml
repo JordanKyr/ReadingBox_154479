@@ -23,45 +23,58 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editRegPass"
+        android:id="@+id/editRegUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="68dp"
         android:layout_marginEnd="100dp"
 
+        android:ems="10"
+        android:hint="Add Username"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textRegister" />
 
+    <EditText
+        android:id="@+id/editRegPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        android:layout_marginTop="36dp"
         android:ems="10"
         android:hint="Add Password"
         android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textRegister" />
+        app:layout_constraintEnd_toEndOf="@+id/editRegUser"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editRegUser"
+        app:layout_constraintTop_toBottomOf="@+id/editRegID" />
 
     <Button
         android:id="@+id/buttonRegSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="59dp"
-
+        android:layout_marginTop="42dp"
+        android:backgroundTint="@color/dark_blue"
         android:text="REGISTER"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editRegUser" />
+        app:layout_constraintEnd_toEndOf="@+id/editRegID"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="@+id/editRegID"
+        app:layout_constraintTop_toBottomOf="@+id/editRegPass" />
 
     <EditText
-        android:id="@+id/editRegUser"
+        android:id="@+id/editRegID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="36dp"
         android:ems="10"
-        android:hint="Add Username"
+        android:hint="Add User ID"
         android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editRegPass" />
+        app:layout_constraintEnd_toEndOf="@+id/editRegPass"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editRegPass"
+        app:layout_constraintTop_toBottomOf="@+id/editRegUser" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

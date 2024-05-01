@@ -125,6 +125,16 @@ public class MainActivity extends AppCompatActivity implements LogInUserFragment
                     drawerLayout.closeDrawers();
                     return cond;
                 }
+                else if(menuItem.getItemId()==R.id.logout){
+                    displayMessage("User "+username+ "Logged Out");
+                    boolean cond=false;
+                    if(findViewById(R.id.fragment_container)!=null){
+                        cond=goToStart(savedInstanceState);
+
+                    }
+                    drawerLayout.closeDrawers();
+                    return cond;
+                }
                 else return false;
             }
         });
@@ -148,7 +158,19 @@ public class MainActivity extends AppCompatActivity implements LogInUserFragment
         return true;
 
     }
+    public boolean goToStart(Bundle savedInstanceState){
 
+        LoginFragment loginFragment=new LoginFragment();
+        if(savedInstanceState!=null){return false;}
+        FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,loginFragment); //ανοίγει ένα ToreadFragment στο layout
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        username="";
+        global_userID="";
+
+        return true;
+
+    }
 
     public boolean goToWantRead(Bundle savedInstanceState){
 

@@ -105,7 +105,7 @@ OnBookSendListener bookSendListener;
         recyclerView.setAdapter(adapter);
 
 */
-        ArrayList<ListBook> toRead= (ArrayList<ListBook>) MainActivity.listDatabase.rbDao().getBooksToRead();
+        ArrayList<ListBook> toRead= (ArrayList<ListBook>) MainActivity.listDatabase.rbDao().getBooksToRead(MainActivity.global_userID);
 
         recyclerView = view.findViewById(R.id.recycler_search);
         recyclerView.setHasFixedSize(true);

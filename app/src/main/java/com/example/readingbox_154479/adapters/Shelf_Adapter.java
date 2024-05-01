@@ -67,7 +67,7 @@ public class Shelf_Adapter extends RecyclerView.Adapter<Shelf_Adapter.shelfViewH
                 Toast.makeText(holder.removeBook.getContext(), "Removed "+holder.title.getText(), Toast.LENGTH_LONG).show();
                 MainActivity.listDatabase.rbDao().deleteListBook(books);
 
-                ArrayList<ListBook> toShelf= (ArrayList<ListBook>) MainActivity.listDatabase.rbDao().getShelfBooks();
+                ArrayList<ListBook> toShelf= (ArrayList<ListBook>) MainActivity.listDatabase.rbDao().getShelfBooks(MainActivity.global_userID);
                 setData(toShelf);
             }
         });

@@ -3,15 +3,7 @@ package com.example.readingbox_154479;
 public class Users {
 
     private String username;
-    private int uid;
 
-    public int getUid() {
-        return uid;
-    }
-
-    public void setUid(int uid) {
-        this.uid = uid;
-    }
 
     private String password;
 

@@ -33,22 +33,28 @@ public interface RB_DAO {
 
     @Query("SELECT * "+
             "FROM books B INNER JOIN to_read W ON B.books_isbn=W.tr_isbn "+
-            "WHERE W.tr_uid=1")
-public List<ListBook> getBooksToRead();
+            "WHERE W.tr_uid= :id")
+public List<ListBook> getBooksToRead(String id);
 
 
     @Query("SELECT * "+
             "FROM books B INNER JOIN shelf S ON B.books_isbn=S.shelf_isbn "+
-            "WHERE S.shelf_uid=1")
-    public List<ListBook> getShelfBooks();
+            "WHERE S.shelf_uid= :id")
+    public List<ListBook> getShelfBooks(String id);
 
     @Query("SELECT S.shelf_isbn "+
             "FROM shelf S INNER JOIN books B ON S.shelf_isbn= :isbn " +
-            "WHERE S.shelf_uid=1 ")
-    public abstract String checkShelf(String isbn);
+            "WHERE S.shelf_uid= :id ")
+    public abstract String checkShelf(String isbn, String id);
 
     @Query("SELECT W.tr_isbn "+
             "FROM to_read W INNER JOIN books B ON W.tr_isbn= :isbn " +
-            "WHERE W.tr_uid=1 ")
-    public abstract String checktoRead(String isbn);
+            "WHERE W.tr_uid= :id ")
+    public abstract String checktoRead(String isbn, String id);
+
+@Query("SELECT U.users_id "+
+        " FROM users U "+
+        "WHERE U.users_id= :id " )
+    public abstract  String checkUserID(String id);
+
 }

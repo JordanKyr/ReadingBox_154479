@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.readingbox_154479.Books;
@@ -39,6 +40,12 @@ public class BookSearch_Adapter extends RecyclerView.Adapter<BookSearch_Adapter.
         Books books= booksArrayList.get(pst);
         holder.author.setText(books.getAuthor());
         holder.title.setText(books.getTitle());
+                                                                        //allazo xroma ana deutero card
+        if (position%2 == 0) {
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(context,R.color.lighter_blue_gray));
+        } else {
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(context,R.color.light_blue_gray));
+        }
 
         Picasso.get().load(books.getCover()).into(holder.cover);
 

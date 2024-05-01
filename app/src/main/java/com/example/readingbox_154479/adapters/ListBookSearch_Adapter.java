@@ -70,7 +70,7 @@ public class ListBookSearch_Adapter extends RecyclerView.Adapter<ListBookSearch_
                 Toast.makeText(holder.removeBook.getContext(), "Removed "+holder.title.getText(), Toast.LENGTH_LONG).show();
                 MainActivity.listDatabase.rbDao().deleteListBook(books);
 
-                ArrayList<ListBook> toRead= (ArrayList<ListBook>) MainActivity.listDatabase.rbDao().getBooksToRead();
+                ArrayList<ListBook> toRead= (ArrayList<ListBook>) MainActivity.listDatabase.rbDao().getBooksToRead(MainActivity.global_userID);
                 setData(toRead);
             }
         });

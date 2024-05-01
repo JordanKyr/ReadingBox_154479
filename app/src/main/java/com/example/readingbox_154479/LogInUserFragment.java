@@ -123,7 +123,7 @@ public class LogInUserFragment extends Fragment {
                                         userID=documentSnapshot.getId();
                                        String dbpsw = documentSnapshot.getString("password");
                                        if(password.equals(dbpsw)){
-                                           Toast.makeText(getActivity(),userID+" user  logged in",Toast.LENGTH_LONG).show();
+                                           Toast.makeText(getActivity(),"Welcome "+username+"!",Toast.LENGTH_LONG).show();
                                            MainActivity.username=username;
                                            MainActivity.global_userID=documentSnapshot.getId();
 

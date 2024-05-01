@@ -4,12 +4,12 @@
 
     <group android:checkableBehavior="single">
 
-    <item
-        android:id="@+id/home"
-        android:icon="@drawable/home_img"
-        android:title="Home">
+        <item
+            android:id="@+id/home"
+            android:icon="@drawable/home_img"
+            android:title="Home">
 
-    </item>
+        </item>
 
     <item
         android:id="@+id/authors"
@@ -25,12 +25,18 @@
 
     </item>
 
-     <item
-         android:id="@+id/shelf"
-         android:icon="@drawable/shelf"
-         android:title="My Shelf">
-    </item>
+        <item
+            android:id="@+id/shelf"
+            android:icon="@drawable/shelf"
+            android:title="My Shelf"></item>
 
+
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/logout_img"
+            android:title="Log-Out">
+
+        </item>
 </group>
 
 

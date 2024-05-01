@@ -1,5 +1,7 @@
 package com.example.readingbox_154479;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.readingbox_154479.adapters.AuthorSearch_Adapter;
 import com.example.readingbox_154479.database.ListBook;
 import com.example.readingbox_154479.database.ListUser;
 import com.example.readingbox_154479.database.ShelfBooks;
@@ -70,13 +73,15 @@ public class BookDetails extends Fragment {
 
     ImageView cover;
     TextView bookDetails;
- Button addWant, addShelf;
+ Button addWant, addShelf, goAuthor;
     String  isbn="";
     String title="";
     String author="";
     Integer pubyear=0;
     String imgURL="";
     CollectionReference collectionReference;
+    String firstName, lastName, search, authorID;
+AuthorsFragment.OnAuthorSendListener authorSendListener;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -98,7 +103,7 @@ public class BookDetails extends Fragment {
 
         addWant=view.findViewById(R.id.btnWant);
         addShelf=view.findViewById(R.id.btnShelf);
-
+        goAuthor=view.findViewById(R.id.buttonToAuthorDet);
 
 
         Bundle bundle =getArguments();                      //παιρνω απο το bundle το String
@@ -136,13 +141,13 @@ public class BookDetails extends Fragment {
                     result+=" Author: "+author+"\n Title: "+title+"\n Publication Year: "+pubyear+"\n Genre: "+genresString+"\n ISBN: "+ isbn +"\n";
 
                     String checkShelf="";
-                    checkShelf+=MainActivity.listDatabase.rbDao().checkShelf(isbn);
+                    checkShelf+=MainActivity.listDatabase.rbDao().checkShelf(isbn, MainActivity.global_userID);
                         if(checkShelf.equals(isbn)) {                                              //elegxos an iparxei idi stis listes
                         addShelf.setEnabled(false);               //apenergopoio ta klik an to exo valei tora
                         addShelf.setText("Already in 'Shelf'");}
 
                     String checktoRead="";
-                    checktoRead+=MainActivity.listDatabase.rbDao().checktoRead(isbn);
+                    checktoRead+=MainActivity.listDatabase.rbDao().checktoRead(isbn,MainActivity.global_userID);
                     if(checktoRead.equals(isbn)) {                                              //elegxos an iparxei idi stis listes
                         addWant.setEnabled(false);               //apenergopoio ta klik an to exo valei tora
                         addWant.setText("Already in 'Want to Read'");}
@@ -158,9 +163,7 @@ public class BookDetails extends Fragment {
                             String var_cover=imgURL;
 
                             try {
-                                ListUser listUser=new ListUser();
-                                listUser.setListUserID(var_uid);                                //ελεγχος για υπαρξη χρηστη---να μετακινηθει?
-                                MainActivity.listDatabase.rbDao().upsertUser(listUser);
+
 
 
                                 ListBook listBook=new ListBook();
@@ -206,9 +209,7 @@ public class BookDetails extends Fragment {
                             String var_cover=imgURL;
 
                             try {
-                                ListUser listUser=new ListUser();
-                                listUser.setListUserID(var_uid);                                //ελεγχος για υπαρξη χρηστη---να μετακινηθει?
-                                MainActivity.listDatabase.rbDao().upsertUser(listUser);
+
 
 
                                 ListBook listBook=new ListBook();
@@ -242,6 +243,23 @@ public class BookDetails extends Fragment {
                             }
                         }
                     });
+                    Toast.makeText(getActivity(),author+" ",Toast.LENGTH_LONG).show();
+                    goAuthor.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String[]   splitSearch = author.split(" ");
+                            String firstname="";
+                            String lastname="";
+                                firstname+=splitSearch[0];
+                                lastname+=splitSearch[1];
+
+                                                                                    //kalo thn methodo authorSendListener apo tin Authors Fragment gia na pao ston author
+                            authorSendListener.onAuthorSend(lastname,firstname);
+
+                        }
+                    });
+
+
                 }
                 bookDetails.setText(result);
                 Picasso.get().load(imgURL).into(cover);
@@ -263,6 +281,21 @@ public class BookDetails extends Fragment {
                 Toast.makeText(getActivity(),"query operation failed.",Toast.LENGTH_LONG).show();
             }});
 
+
+
+
     return view;
     }
+
+    @Override
+    public void onAttach(@NonNull Context context){
+        super.onAttach(context);
+        Activity activity=(Activity) context;
+        try{
+            authorSendListener=(AuthorsFragment.OnAuthorSendListener) activity;
+        }catch (ClassCastException e){
+            throw new ClassCastException(activity.toString()+" must implement onAuthorSend ");
+        }
+    }
+
 }

@@ -9,6 +9,7 @@
     android:layout_height="wrap_content"
     android:paddingStart="4dp"
     android:paddingTop="4dp"
+    app:cardBackgroundColor="@color/light_blue_gray"
     android:scrollbars="vertical"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"

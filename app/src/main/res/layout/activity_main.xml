@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
+    android:background="@color/pewter"
     android:id="@+id/main">
 
     <androidx.drawerlayout.widget.DrawerLayout
@@ -50,8 +51,11 @@
             android:layout_width="220dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
+            android:backgroundTint="@color/blue_gray"
+            app:itemBackground="@drawable/menu_nav_item_drawable"
             app:itemIconSize="36dp"
             app:itemTextAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:itemTextColor="@color/white"
             app:itemVerticalPadding="10dp"
             app:menu="@menu/drawer_menu"></com.google.android.material.navigation.NavigationView>
     </androidx.drawerlayout.widget.DrawerLayout>
