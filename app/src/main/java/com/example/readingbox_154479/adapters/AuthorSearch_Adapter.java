@@ -86,9 +86,9 @@ public class AuthorSearch_Adapter extends RecyclerView.Adapter<AuthorSearch_Adap
         String photoURL;
         public authorsViewHolder(@NonNull View itemView){         //αναφορες στα αντικειμενα του view
             super(itemView);
-           photo=itemView.findViewById(R.id.recyclerImage);
-         surname=itemView.findViewById(R.id.recyclerAuthor);
-            firstname=itemView.findViewById(R.id.recyclerTitle);
+           photo=itemView.findViewById(R.id.spinnerImage);
+         surname=itemView.findViewById(R.id.spinnerAuthor);
+            firstname=itemView.findViewById(R.id.spinnerTitle);
             cardView=itemView.findViewById(R.id.cardHolder);
 
 

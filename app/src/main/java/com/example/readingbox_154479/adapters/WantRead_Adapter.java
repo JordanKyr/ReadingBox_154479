@@ -91,9 +91,9 @@ public class WantRead_Adapter extends RecyclerView.Adapter<WantRead_Adapter.want
         Button removeBook;
         public wantViewHolder(@NonNull View itemView){         //αναφορες στα αντικειμενα του view
             super(itemView);
-            cover=itemView.findViewById(R.id.recyclerImage);
-            author=itemView.findViewById(R.id.recyclerAuthor);
-            title=itemView.findViewById(R.id.recyclerTitle);
+            cover=itemView.findViewById(R.id.spinnerImage);
+            author=itemView.findViewById(R.id.spinnerAuthor);
+            title=itemView.findViewById(R.id.spinnerTitle);
             cardView=itemView.findViewById(R.id.cardHolder);
 
 

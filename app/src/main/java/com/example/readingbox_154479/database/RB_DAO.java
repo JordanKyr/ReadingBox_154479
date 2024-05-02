@@ -57,4 +57,15 @@ public List<ListBook> getBooksToRead(String id);
         "WHERE U.users_id= :id " )
     public abstract  String checkUserID(String id);
 
+
+@Query("SELECT * "+
+        "FROM books B "+
+        "INNER JOIN shelf S ON B.books_isbn=S.shelf_isbn "+
+        "WHERE S.shelf_uid= :id " +
+        "UNION  "+
+        "SELECT * FROM books B "+
+        "INNER JOIN to_read W ON B.books_isbn=W.tr_isbn "+
+        "WHERE W.tr_uid= :id")
+public abstract  List<ListBook> getAllBooks(String id);
+
 }

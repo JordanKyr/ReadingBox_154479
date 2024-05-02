@@ -23,7 +23,7 @@
         android:padding="10dp">
 
         <TextView
-            android:id="@+id/recyclerTitle"
+            android:id="@+id/spinnerTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -31,12 +31,12 @@
             android:layout_marginBottom="9dp"
             android:text="Title"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerAuthor"
-            app:layout_constraintStart_toEndOf="@+id/recyclerImage"
+            app:layout_constraintBottom_toTopOf="@+id/spinnerAuthor"
+            app:layout_constraintStart_toEndOf="@+id/spinnerImage"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/recyclerImage"
+            android:id="@+id/spinnerImage"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:layout_marginStart="4dp"
@@ -48,7 +48,7 @@
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/recyclerAuthor"
+            android:id="@+id/spinnerAuthor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -57,8 +57,8 @@
             android:text="Author"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/recyclerImage"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerTitle" />
+            app:layout_constraintStart_toEndOf="@+id/spinnerImage"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerTitle" />
 
         <ImageButton
             android:id="@+id/btnRemoveBook"
@@ -68,7 +68,7 @@
             android:layout_marginTop="52dp"
             android:background="@android:color/transparent"
             android:visibility="invisible"
-            app:layout_constraintStart_toEndOf="@+id/recyclerAuthor"
+            app:layout_constraintStart_toEndOf="@+id/spinnerAuthor"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/clear" />
     </androidx.constraintlayout.widget.ConstraintLayout>

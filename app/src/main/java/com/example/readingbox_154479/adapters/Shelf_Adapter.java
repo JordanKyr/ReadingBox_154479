@@ -6,7 +6,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,7 +24,6 @@ import com.squareup.picasso.Picasso;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Shelf_Adapter extends RecyclerView.Adapter<Shelf_Adapter.shelfViewHolder> {
 
@@ -109,9 +107,9 @@ public class Shelf_Adapter extends RecyclerView.Adapter<Shelf_Adapter.shelfViewH
         ImageButton removeBook;
         public shelfViewHolder(@NonNull View itemView){         //αναφορες στα αντικειμενα του view
             super(itemView);
-            cover=itemView.findViewById(R.id.recyclerImage);
-            author=itemView.findViewById(R.id.recyclerAuthor);
-            title=itemView.findViewById(R.id.recyclerTitle);
+            cover=itemView.findViewById(R.id.spinnerImage);
+            author=itemView.findViewById(R.id.spinnerAuthor);
+            title=itemView.findViewById(R.id.spinnerTitle);
             cardView=itemView.findViewById(R.id.cardHolder);
             removeBook=itemView.findViewById(R.id.btnRemoveBook);
 

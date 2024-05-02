@@ -135,6 +135,17 @@ public class MainActivity extends AppCompatActivity implements LogInUserFragment
                     drawerLayout.closeDrawers();
                     return cond;
                 }
+                else if(menuItem.getItemId()==R.id.add_quotes){
+                    displayMessage("Open My Quotes");
+                    boolean cond=false;
+                    if(findViewById(R.id.fragment_container)!=null){
+                        cond=goToQuotes(savedInstanceState);
+
+                    }
+                    drawerLayout.closeDrawers();
+
+                    return cond;
+                }
                 else return false;
             }
         });
@@ -162,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements LogInUserFragment
 
         LoginFragment loginFragment=new LoginFragment();
         if(savedInstanceState!=null){return false;}
-        FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,loginFragment); //ανοίγει ένα ToreadFragment στο layout
+        FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,loginFragment); //ανοίγει ένα Login Fragment στο layout
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         username="";
@@ -171,6 +182,17 @@ public class MainActivity extends AppCompatActivity implements LogInUserFragment
         return true;
 
     }
+
+public boolean goToQuotes(Bundle savedInstanceState){
+
+        QuotesFragment quotesFragment=new QuotesFragment();
+    if(savedInstanceState!=null){return false;}
+    FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,quotesFragment); //ανοίγει ένα Quotes Fragment στο layout
+    fragmentTransaction.addToBackStack(null);
+    fragmentTransaction.commit();
+
+        return true;
+}
 
     public boolean goToWantRead(Bundle savedInstanceState){
 

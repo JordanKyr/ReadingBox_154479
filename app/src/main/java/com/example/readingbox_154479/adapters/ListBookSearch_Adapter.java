@@ -6,7 +6,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,7 +13,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.readingbox_154479.MainActivity;
@@ -26,7 +24,6 @@ import com.squareup.picasso.Picasso;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ListBookSearch_Adapter extends RecyclerView.Adapter<ListBookSearch_Adapter.booksViewHolder> {
 
@@ -112,9 +109,9 @@ public class ListBookSearch_Adapter extends RecyclerView.Adapter<ListBookSearch_
         ImageButton removeBook;
         public booksViewHolder(@NonNull View itemView){         //αναφορες στα αντικειμενα του view
             super(itemView);
-            cover=itemView.findViewById(R.id.recyclerImage);
-            author=itemView.findViewById(R.id.recyclerAuthor);
-            title=itemView.findViewById(R.id.recyclerTitle);
+            cover=itemView.findViewById(R.id.spinnerImage);
+            author=itemView.findViewById(R.id.spinnerAuthor);
+            title=itemView.findViewById(R.id.spinnerTitle);
             cardView=itemView.findViewById(R.id.cardHolder);
             removeBook=itemView.findViewById(R.id.btnRemoveBook);
 
