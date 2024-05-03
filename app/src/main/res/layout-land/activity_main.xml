@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:background="@color/pewter"
+    android:id="@+id/main">
+
+    <androidx.drawerlayout.widget.DrawerLayout
+
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity"
+        android:id="@+id/drawer_layout"
+
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="1dp"
+            app:layout_constraintBottom_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.navigation.NavigationView
+
+
+                android:id="@+id/nav_View"
+                android:layout_width="220dp"
+                android:layout_height="322dp"
+                android:layout_gravity="bottom|start"
+                android:backgroundTint="@color/blue_gray"
+                app:itemBackground="@drawable/menu_nav_item_drawable"
+                app:itemIconSize="36dp"
+                app:itemTextAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:itemTextColor="@color/white"
+                app:itemVerticalPadding="10dp"
+                app:menu="@menu/drawer_menu"></com.google.android.material.navigation.NavigationView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <include
+                    layout="@layout/toolbar_layout"
+                    android:layout_height="30dp"></include>
+            </LinearLayout>
+        </FrameLayout>
+
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+    <!--Frame Layout για να μπαινουν τα fragments μέσα-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

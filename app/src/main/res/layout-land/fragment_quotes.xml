@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".QuotesFragment">
+
+    <TextView
+        android:id="@+id/TextUserWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="75dp"
+        android:text="Welcome user"
+        android:textAlignment="viewStart" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/textContentQ"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="Type a Quote"
+            android:inputType="textMultiLine"
+            app:layout_constraintEnd_toEndOf="@+id/spinnerBooks"
+            app:layout_constraintStart_toStartOf="@+id/spinnerBooks"
+            app:layout_constraintTop_toBottomOf="@+id/textAddQuotes" />
+
+        <Button
+            android:id="@+id/buttonAddQuote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="240dp"
+            android:backgroundTint="@color/dark_blue"
+            android:text="Save"
+            app:layout_constraintStart_toEndOf="@+id/spinnerBooks"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/spinnerBooks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/oblong_shape"
+            android:gravity="center"
+            android:spinnerMode="dropdown"
+            app:layout_constraintEnd_toEndOf="@+id/btnGoToSaved"
+            app:layout_constraintStart_toStartOf="@+id/btnGoToSaved"
+            app:layout_constraintTop_toBottomOf="@+id/textContentQ" />
+
+        <TextView
+            android:id="@+id/textSelectBook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="240dp"
+            android:layout_marginEnd="24dp"
+            android:text="Select Book:"
+            app:layout_constraintEnd_toStartOf="@+id/spinnerBooks"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnGoToSaved"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="392dp"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/dark_blue"
+            android:text="View Saved Quotes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerBooks" />
+
+        <TextView
+            android:id="@+id/textAddQuotes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="424dp"
+            android:layout_marginTop="28dp"
+            android:text="Add Quotes"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="452dp"
+            android:layout_marginTop="52dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/add_quote" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

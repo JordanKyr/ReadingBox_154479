@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BookDetails">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ImageView
+        android:id="@+id/imageViewCover"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="65dp"
+        android:adjustViewBounds="true"
+        android:src="@android:drawable/ic_menu_gallery" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/btnShelf"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="76dp"
+            android:backgroundTint="@color/blue_gray"
+            android:maxLines="2"
+            android:text="Add to 'Shelf'"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnWant"
+            app:layout_constraintHorizontal_bias="0.917"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.622" />
+
+        <Button
+            android:id="@+id/btnWant"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="544dp"
+            android:backgroundTint="@color/blue_gray"
+            android:maxLines="2"
+            android:text="Want to Read"
+            app:layout_constraintBottom_toBottomOf="@+id/btnShelf"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnShelf" />
+
+        <Button
+            android:id="@+id/buttonToAuthorDet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="468dp"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/dark_blue"
+            android:text="Go to Author"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnShelf" />
+
+        <TextView
+            android:id="@+id/textBookDet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="496dp"
+            android:layout_marginTop="96dp"
+            android:text="@string/hello_blank_fragment"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
