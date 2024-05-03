@@ -28,7 +28,7 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/resultLayout"
         android:layout_width="match_parent"
-        android:layout_height="432dp"
+        android:layout_height="550dp"
         android:layout_gravity="bottom|center_horizontal"
         android:orientation="vertical">
 
@@ -41,6 +41,13 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="75dp"
+        app:srcCompat="@drawable/quotes_img" />
 
 
 </FrameLayout>

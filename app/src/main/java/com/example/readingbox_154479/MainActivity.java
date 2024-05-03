@@ -1,8 +1,11 @@
 package com.example.readingbox_154479;
 
 import android.content.Entity;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.media.Image;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -94,22 +97,21 @@ public class MainActivity extends AppCompatActivity implements LogInUserFragment
                 }
                 else if(menuItem.getItemId()==R.id.authors){
                     displayMessage("Open Authors");
-                    if(findViewById(R.id.fragment_container)!=null){
-                        if(savedInstanceState!=null){return false;}
+
                         FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new AuthorsFragment()); //ανοίγει ένα AuthorFragment στο layout
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
                         onMessageSendAuthors();
-                    }
+
                     drawerLayout.closeDrawers();
                     return true;
                 }
                 else if(menuItem.getItemId()==R.id.lists){
                     displayMessage("Open Want to Read");
                     boolean cond=false;
-                    if(findViewById(R.id.fragment_container)!=null){
+
                         cond=goToWantRead(savedInstanceState);    //opens Want To Read
-                    }
+
 
                     drawerLayout.closeDrawers();
                     return cond;
@@ -118,30 +120,30 @@ public class MainActivity extends AppCompatActivity implements LogInUserFragment
 
                     displayMessage("Open My Shelf");
                     boolean cond=false;
-                    if(findViewById(R.id.fragment_container)!=null){
+
                         cond=goToShelf(savedInstanceState);
 
-                    }
+
                     drawerLayout.closeDrawers();
                     return cond;
                 }
                 else if(menuItem.getItemId()==R.id.logout){
                     displayMessage("User "+username+ " Logged Out");
                     boolean cond=false;
-                    if(findViewById(R.id.fragment_container)!=null){
+
                         cond=goToStart(savedInstanceState);
 
-                    }
+
                     drawerLayout.closeDrawers();
                     return cond;
                 }
                 else if(menuItem.getItemId()==R.id.add_quotes){
                     displayMessage("Add Quotes");
                     boolean cond=false;
-                    if(findViewById(R.id.fragment_container)!=null){
+
                         cond=goToQuotes(savedInstanceState);
 
-                    }
+
                     drawerLayout.closeDrawers();
 
                     return cond;
@@ -149,10 +151,10 @@ public class MainActivity extends AppCompatActivity implements LogInUserFragment
                 else if(menuItem.getItemId()==R.id.saved_quotes){
                     displayMessage("Open My Quotes");
                     boolean cond=false;
-                    if(findViewById(R.id.fragment_container)!=null){
+
                         cond=goToSavedQuotes(savedInstanceState);
 
-                    }
+
                     drawerLayout.closeDrawers();
 
                     return cond;
@@ -173,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements LogInUserFragment
     public boolean goToShelf(Bundle savedInstanceState){
 
         ShelfFragment shelfFragment=new ShelfFragment();
-        if(savedInstanceState!=null){return false;}
+
         FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,shelfFragment); //ανοίγει ένα ToreadFragment στο layout
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
@@ -183,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements LogInUserFragment
     public boolean goToStart(Bundle savedInstanceState){
 
         LoginFragment loginFragment=new LoginFragment();
-        if(savedInstanceState!=null){return false;}
+
         FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,loginFragment); //ανοίγει ένα Login Fragment στο layout
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
@@ -197,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements LogInUserFragment
     public boolean goToSavedQuotes(Bundle savedInstanceState){
 
         SavedQuotesFragment savedQuotesFragment=new SavedQuotesFragment();
-        if(savedInstanceState!=null){return false;}
+
         FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,savedQuotesFragment); //ανοίγει ένα SavedQuotes Fragment στο layout
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
@@ -208,7 +210,7 @@ public class MainActivity extends AppCompatActivity implements LogInUserFragment
 public boolean goToQuotes(Bundle savedInstanceState){
 
         QuotesFragment quotesFragment=new QuotesFragment();
-    if(savedInstanceState!=null){return false;}
+
     FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,quotesFragment); //ανοίγει ένα Quotes Fragment στο layout
     fragmentTransaction.addToBackStack(null);
     fragmentTransaction.commit();
@@ -219,7 +221,7 @@ public boolean goToQuotes(Bundle savedInstanceState){
     public boolean goToWantRead(Bundle savedInstanceState){
 
         ToReadFragment toReadFragment=new ToReadFragment();
-        if(savedInstanceState!=null){return false;}
+
         FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,toReadFragment); //ανοίγει ένα ToreadFragment στο layout
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
@@ -279,7 +281,10 @@ public void onMessageSend(String message) {
 
     }
 
-    void displayMessage(String message){
-        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+    void displayMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+
+
     }
+
 }

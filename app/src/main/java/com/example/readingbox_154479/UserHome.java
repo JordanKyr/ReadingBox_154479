@@ -79,7 +79,7 @@ public class UserHome extends Fragment{
     ImageButton button ;
     EditText searchString;
     CollectionReference collectionReference;
-    String title, search;
+    String title, search="";
     RecyclerView recyclerView;
     BookSearch_Adapter adapter;
     ArrayList<Books> booksArrayList;

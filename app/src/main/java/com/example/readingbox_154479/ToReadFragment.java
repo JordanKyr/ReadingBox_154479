@@ -93,28 +93,16 @@ OnBookSendListener bookSendListener;
         welcome=view.findViewById(R.id.TextUserWelcome);
         welcome.setText("Welcome "+MainActivity.username);
 
-    /*    ArrayList<WantToRead> toRead= (ArrayList<WantToRead>) MainActivity.listDatabase.rbDao().getToRead();
-
-
-        recyclerView = view.findViewById(R.id.recycler_search);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-       // wantBooks = new ArrayList<WantToRead>();
-        adapter = new WantRead_Adapter(getContext(), toRead);
-        recyclerView.setAdapter(adapter);
-
-*/
         ArrayList<ListBook> toRead= (ArrayList<ListBook>) MainActivity.listDatabase.rbDao().getBooksToRead(MainActivity.global_userID);
 
         recyclerView = view.findViewById(R.id.recycler_search);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // wantBooks = new ArrayList<WantToRead>();
+
         adapterBook = new ListBookSearch_Adapter(getContext(), toRead);
         recyclerView.setAdapter(adapterBook);
-    //    adapterBook.notifyDataSetChanged();
+
 
         adapterBook.setOnClickListener(new ListBookSearch_Adapter.OnClickListener() {
             @Override

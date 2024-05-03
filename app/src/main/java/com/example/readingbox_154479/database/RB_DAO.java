@@ -10,9 +10,6 @@ import java.util.List;
 @Dao
 public interface RB_DAO {
                                     //to Data Access Object βοηθαει στην αλληλεπιδραση με τα αποθηκευμενα στοιχεια της βασης
-    @Insert
-    public void addUser(ListUser listUser);
-
 
     @Insert
     public void insertWantRead(WantToRead wantToRead);
@@ -34,8 +31,8 @@ public interface RB_DAO {
     @Delete
     public void deleteListBook(ListBook listBook);
 
-    @Query("SELECT * FROM to_read")
-    public List<WantToRead> getToRead();
+    @Delete void deleteQuote(Saved_Quotes savedQuotes);
+
 
     @Query("SELECT * "+
             "FROM books B INNER JOIN to_read W ON B.books_isbn=W.tr_isbn "+
@@ -57,11 +54,6 @@ public List<ListBook> getBooksToRead(String id);
             "FROM to_read W INNER JOIN books B ON W.tr_isbn= :isbn " +
             "WHERE W.tr_uid= :id ")
     public abstract String checktoRead(String isbn, String id);
-
-@Query("SELECT U.users_id "+
-        " FROM users U "+
-        "WHERE U.users_id= :id " )
-    public abstract  String checkUserID(String id);
 
 
 @Query("SELECT * "+
@@ -92,13 +84,14 @@ public abstract int getQID(String argUID,String argISBN, String argSTR);
 @Query("SELECT * " +
 "     FROM books B "+
         "INNER JOIN saved_quotes S ON B.books_isbn=S.quotes_isbn" +
-        " WHERE B.books_isbn=:arg_isbn AND S.quotes_uid=:arg_uid ")
-    public abstract ListBook getBookQuoteRef(String arg_isbn, String arg_uid);
+        " WHERE B.books_isbn=:arg_isbn AND S.quotes_uid=:arg_uid  AND S.quotes_qid=:arg_qid")
+    public abstract ListBook getQuotedBook(String arg_isbn, String arg_uid, int arg_qid);
 
 
 @Query("SELECT Q.quote " +
 " FROM quotes Q INNER JOIN saved_quotes S ON S.quotes_qid=Q.q_id "
    +" WHERE S.quotes_uid=:arg_uid AND Q.q_id=:arg_qid ")
 public abstract String getTextQuote(String arg_uid,int arg_qid);
+
 
 }

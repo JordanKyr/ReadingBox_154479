@@ -30,6 +30,8 @@
             android:text="Title"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/quoteAuthor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/quoteAuthor" />
 
         <ImageView
@@ -54,6 +56,8 @@
             android:layout_marginTop="4dp"
             android:text="Author"
             android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/quoteImage"
             app:layout_constraintTop_toBottomOf="@+id/quoteTitle" />
 
@@ -61,19 +65,31 @@
             android:id="@+id/btnRemoveQuote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="316dp"
+            android:layout_marginTop="4dp"
             android:background="@android:color/transparent"
             android:visibility="invisible"
-            app:srcCompat="@drawable/clear"
-            tools:layout_editor_absoluteX="338dp"
-            tools:layout_editor_absoluteY="135dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/clear" />
 
         <TextView
             android:id="@+id/txtQuoteHere"
             android:layout_width="247dp"
-            android:layout_height="117dp"
-            android:layout_marginStart="124dp"
-            android:layout_marginTop="4dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="112dp"
+            android:layout_marginTop="20dp"
             android:text="Quote Here."
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textQuoteTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="84dp"
+            android:layout_marginTop="4dp"
+            android:text="Quote:"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
