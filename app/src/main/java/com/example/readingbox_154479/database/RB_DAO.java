@@ -19,6 +19,12 @@ public interface RB_DAO {
 
     @Insert
     public void insertShef(ShelfBooks shelfBooks);
+
+    @Insert
+    public void insertSavedQuote(Saved_Quotes savedQuotes);
+
+    @Insert
+    public void insertQuote(Quotes Quotes);
     @Upsert
     public void upsertBook(ListBook listBook);
 
@@ -67,5 +73,32 @@ public List<ListBook> getBooksToRead(String id);
         "INNER JOIN to_read W ON B.books_isbn=W.tr_isbn "+
         "WHERE W.tr_uid= :id")
 public abstract  List<ListBook> getAllBooks(String id);
+
+
+@Query("SELECT Q.q_id " +
+ " FROM quotes Q " +
+ " INNER JOIN users U on U.users_id=:argUID "   +
+  " INNER JOIN books B on B.books_isbn=:argISBN "    +
+  "WHERE Q.quote = :argSTR ")
+
+public abstract int getQID(String argUID,String argISBN, String argSTR);
+
+
+@Query("SELECT * "+
+        "FROM saved_quotes S" +
+        " WHERE S.quotes_uid=:arg_uid ")
+    public abstract List<Saved_Quotes> getSavedQuotes(String arg_uid);
+
+@Query("SELECT * " +
+"     FROM books B "+
+        "INNER JOIN saved_quotes S ON B.books_isbn=S.quotes_isbn" +
+        " WHERE B.books_isbn=:arg_isbn AND S.quotes_uid=:arg_uid ")
+    public abstract ListBook getBookQuoteRef(String arg_isbn, String arg_uid);
+
+
+@Query("SELECT Q.quote " +
+" FROM quotes Q INNER JOIN saved_quotes S ON S.quotes_qid=Q.q_id "
+   +" WHERE S.quotes_uid=:arg_uid AND Q.q_id=:arg_qid ")
+public abstract String getTextQuote(String arg_uid,int arg_qid);
 
 }

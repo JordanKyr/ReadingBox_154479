@@ -95,9 +95,9 @@ public class RegisterFragment extends Fragment {
         reg_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                reg_username=usernameText.getText().toString();                               //παιρνει τις τιμες που εγραψε ο χρηστης
-                reg_password=passText.getText().toString();
-                reg_id=uidText.getText().toString();
+                reg_username=usernameText.getText().toString().trim();                               //παιρνει τις τιμες που εγραψε ο χρηστης
+                reg_password=passText.getText().toString().trim();
+                reg_id=uidText.getText().toString().trim();
                                                                             //elegxos an ola ta pedia exoyn simplirothei
                 if(!TextUtils.isEmpty(reg_username) && !TextUtils.isEmpty(reg_password) && !TextUtils.isEmpty(reg_id) ) {
 

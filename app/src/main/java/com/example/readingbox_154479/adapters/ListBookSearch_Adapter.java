@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.readingbox_154479.MainActivity;
@@ -43,6 +44,12 @@ public class ListBookSearch_Adapter extends RecyclerView.Adapter<ListBookSearch_
         //assigning values to rows based on the recycler view position
 
         int pst=position;
+        if (position%2 == 0) {
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(context,R.color.lighter_blue_gray));
+        } else {
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(context,R.color.light_blue_gray));
+        }
+
         ListBook books= booksArrayList.get(pst);
         holder.author.setText(books.getListAuthor());
         holder.title.setText(books.getListTitle());

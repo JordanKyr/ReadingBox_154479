@@ -30,6 +30,10 @@
             android:icon="@drawable/shelf"
             android:title="My Shelf"></item>
 
+        <item android:id="@+id/saved_quotes"
+            android:icon="@drawable/quotes_img"
+            android:title="Saved Quotes"></item>
+
         <item
             android:id="@+id/add_quotes"
             android:icon="@drawable/add_quote"

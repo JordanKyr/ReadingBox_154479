@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.readingbox_154479.R;
@@ -39,6 +40,13 @@ public class WantRead_Adapter extends RecyclerView.Adapter<WantRead_Adapter.want
         //assigning values to rows based on the recycler view position
 
         int pst=position;
+
+        if (position%2 == 0) {
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(context,R.color.lighter_blue_gray));
+        } else {
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(context,R.color.light_blue_gray));
+        }
+
         WantToRead want= wantArrayList.get(pst);
         holder.author.setText(want.getTr_ISBN());
         holder.title.setText(want.getTr_UserID());

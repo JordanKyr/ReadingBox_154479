@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements LogInUserFragment
                     return cond;
                 }
                 else if(menuItem.getItemId()==R.id.logout){
-                    displayMessage("User "+username+ "Logged Out");
+                    displayMessage("User "+username+ " Logged Out");
                     boolean cond=false;
                     if(findViewById(R.id.fragment_container)!=null){
                         cond=goToStart(savedInstanceState);
@@ -136,10 +136,21 @@ public class MainActivity extends AppCompatActivity implements LogInUserFragment
                     return cond;
                 }
                 else if(menuItem.getItemId()==R.id.add_quotes){
-                    displayMessage("Open My Quotes");
+                    displayMessage("Add Quotes");
                     boolean cond=false;
                     if(findViewById(R.id.fragment_container)!=null){
                         cond=goToQuotes(savedInstanceState);
+
+                    }
+                    drawerLayout.closeDrawers();
+
+                    return cond;
+                }
+                else if(menuItem.getItemId()==R.id.saved_quotes){
+                    displayMessage("Open My Quotes");
+                    boolean cond=false;
+                    if(findViewById(R.id.fragment_container)!=null){
+                        cond=goToSavedQuotes(savedInstanceState);
 
                     }
                     drawerLayout.closeDrawers();
@@ -181,6 +192,17 @@ public class MainActivity extends AppCompatActivity implements LogInUserFragment
 
         return true;
 
+    }
+
+    public boolean goToSavedQuotes(Bundle savedInstanceState){
+
+        SavedQuotesFragment savedQuotesFragment=new SavedQuotesFragment();
+        if(savedInstanceState!=null){return false;}
+        FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,savedQuotesFragment); //ανοίγει ένα SavedQuotes Fragment στο layout
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+
+        return true;
     }
 
 public boolean goToQuotes(Bundle savedInstanceState){
