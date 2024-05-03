@@ -1,4 +1,4 @@
-package com.example.readingbox_154479;
+package com.example.readingbox_154479.database;
 
 import java.util.List;
 

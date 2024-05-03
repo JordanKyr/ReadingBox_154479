@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.readingbox_154479.Authors;
+import com.example.readingbox_154479.database.Authors;
 import com.example.readingbox_154479.R;
 import com.squareup.picasso.Picasso;
 

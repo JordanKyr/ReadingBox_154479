@@ -12,7 +12,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.readingbox_154479.Books;
+import com.example.readingbox_154479.database.Books;
 import com.example.readingbox_154479.R;
 import com.squareup.picasso.Picasso;
 

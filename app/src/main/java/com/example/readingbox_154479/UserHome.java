@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.readingbox_154479.adapters.BookSearch_Adapter;
+import com.example.readingbox_154479.database.Books;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
@@ -134,7 +135,6 @@ public class UserHome extends Fragment{
 
 
                         recyclerView=view.findViewById(R.id.recycler_search);
-                        // To display the Recycler view linearly
                         recyclerView.setHasFixedSize(true);
                         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -142,7 +142,6 @@ public class UserHome extends Fragment{
                         adapter=new BookSearch_Adapter(getContext(),booksArrayList);
                         recyclerView.setAdapter(adapter);
 
-                        recyclerView.setAdapter(adapter);
 
                         adapter.setOnClickListener(new BookSearch_Adapter.OnClickListener() {
                             @Override

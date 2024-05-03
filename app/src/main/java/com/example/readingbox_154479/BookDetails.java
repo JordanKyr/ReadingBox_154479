@@ -11,14 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.readingbox_154479.adapters.AuthorSearch_Adapter;
+import com.example.readingbox_154479.database.Books;
 import com.example.readingbox_154479.database.ListBook;
-import com.example.readingbox_154479.database.ListUser;
 import com.example.readingbox_154479.database.ShelfBooks;
 import com.example.readingbox_154479.database.WantToRead;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -243,7 +241,7 @@ AuthorsFragment.OnAuthorSendListener authorSendListener;
                             }
                         }
                     });
-                    Toast.makeText(getActivity(),author+" ",Toast.LENGTH_LONG).show();
+
                     goAuthor.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
