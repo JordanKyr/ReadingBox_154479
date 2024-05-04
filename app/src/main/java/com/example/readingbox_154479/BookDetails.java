@@ -218,15 +218,9 @@ AuthorsFragment.OnAuthorSendListener authorSendListener;
                                 listBook.setListCover(var_cover);
                                 MainActivity.listDatabase.rbDao().upsertBook(listBook);
 
-
-
                                 ShelfBooks shelfBooks = new ShelfBooks();
                                 shelfBooks.setShelf_ISBN(var_bid);                 //δημιουργια αντικειμενου λιστας που εχουν διαβαστει
                                 shelfBooks.setShelf_UserID(var_uid);               //εισαγωγη στοιχειων του
-
-
-
-
                                 MainActivity.listDatabase.rbDao().insertShef(shelfBooks);           //εκτελση insert στη βαση
 
 
